@@ -1,0 +1,8 @@
+@media only screen and (max-device-width: 600px) {
+    #form {
+        display: flex;
+        flex-direction: column;
+        background-color: orange;
+        width: 80vw;
+    }
+}
