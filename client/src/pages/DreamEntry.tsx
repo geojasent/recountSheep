@@ -1,10 +1,10 @@
 import React, { FormEvent, useState } from 'react';
-import { DateSelector } from '../components/dateTimePicker';
+import { DateSelector, DaySelector } from '../components/dateTimePicker';
 import { FormWrapper } from '../components/FormWrapper';
 import './Form.modules.css';
 
 export interface IFormData {
-    date: Date;
+    dayOfMonth: Date | null;
     dayOfWeek: string;
     timeToBed: string;
     timeAwake: string;
@@ -14,13 +14,9 @@ export interface IFormData {
     dream: string;
 }
 
-export interface IUserFormProps extends IFormData {
-    updateFields: (fields: Partial<IFormData>) => void;
-}
-
 const INITIALDATA: IFormData = {
-    date: new Date(),
-    dayOfWeek: '',
+    dayOfMonth: new Date(),
+    dayOfWeek: 'Sunday',
     timeToBed: '',
     timeAwake: '',
     people: '',
@@ -46,9 +42,11 @@ const DreamEntry: React.FC = () => {
             <FormWrapper title="Dream Entry">
                 <form id="form" onSubmit={onSubmit}>
                     <label>Date</label>
-                    <DateSelector {...data} />
+                    <DateSelector {...data} updateFields={updateFields} />
                     <label>Day of Week</label>
-                    <input className="date" placeholder="Day of Week" onChange={(e) => updateFields({ dayOfWeek: e.target.value })}></input>
+                    <DaySelector {...data} updateFields={updateFields} />
+                    {/* <DaySelector dayOfWeek={data.date.toString().split(' ')[0]} setDayOfWeek={...Partial<>} /> */}
+                    {/* <input className="date" placeholder="Day of Week" onChange={(e) => updateFields({ dayOfWeek: e.target.value })}></input> */}
                     <label>Time to Bed</label>
                     <input className="date" placeholder="Time to Bed" onChange={(e) => updateFields({ timeToBed: e.target.value })}></input>
                     <label>Time Awake</label>
