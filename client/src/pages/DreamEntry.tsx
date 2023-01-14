@@ -1,25 +1,28 @@
 import React, { FormEvent, useState } from 'react';
-import { DateSelector, DaySelector } from '../components/dateTimePicker';
+import { DateSelector, DaySelector, TimeBedSelector, TimeAwakeSelector } from '../components/dateTimePicker';
+import { PeopleInput } from '../components/PeopleInput';
+import { TypeDream } from '../components/TypeDream';
+import { Location } from '../components/Location';
+import { Dream } from '../components/Dream';
 import { FormWrapper } from '../components/FormWrapper';
 import './Form.modules.css';
 
 export interface IFormData {
     dayOfMonth: Date | null;
     dayOfWeek: string;
-    timeToBed: string;
-    timeAwake: string;
+    timeToBed: Date | null;
+    timeAwake: number;
     location: string;
-    people: string;
+    people: Array<string>;
     typeOfDream: string;
     dream: string;
 }
-
 const INITIALDATA: IFormData = {
     dayOfMonth: new Date(),
     dayOfWeek: 'Sunday',
-    timeToBed: '',
-    timeAwake: '',
-    people: '',
+    timeToBed: new Date(),
+    timeAwake: 0,
+    people: [],
     location: '',
     typeOfDream: '',
     dream: ''
@@ -36,29 +39,28 @@ const DreamEntry: React.FC = () => {
     const onSubmit = (e: FormEvent) => {
         e.preventDefault();
         console.log(data);
+        //strip date and time to send to backend
     };
     return (
         <div className="form-container">
             <FormWrapper title="Dream Entry">
                 <form id="form" onSubmit={onSubmit}>
-                    <label>Date</label>
                     <DateSelector {...data} updateFields={updateFields} />
-                    <label>Day of Week</label>
                     <DaySelector {...data} updateFields={updateFields} />
-                    {/* <DaySelector dayOfWeek={data.date.toString().split(' ')[0]} setDayOfWeek={...Partial<>} /> */}
-                    {/* <input className="date" placeholder="Day of Week" onChange={(e) => updateFields({ dayOfWeek: e.target.value })}></input> */}
-                    <label>Time to Bed</label>
-                    <input className="date" placeholder="Time to Bed" onChange={(e) => updateFields({ timeToBed: e.target.value })}></input>
-                    <label>Time Awake</label>
-                    <input className="date" placeholder="Time Awake" onChange={(e) => updateFields({ timeAwake: e.target.value })}></input>
-                    <label>People</label>
-                    <input className="date" placeholder="People" onChange={(e) => updateFields({ people: e.target.value })}></input>
-                    <label>Location</label>
-                    <input className="date" placeholder="Location" onChange={(e) => updateFields({ location: e.target.value })}></input>
-                    <label>Type of Dream</label>
-                    <input className="date" placeholder="Type of Dream" onChange={(e) => updateFields({ typeOfDream: e.target.value })}></input>
-                    <label>Dream</label>
-                    <input className="date" placeholder="Dream" onChange={(e) => updateFields({ dream: e.target.value })}></input>
+                    <TimeBedSelector {...data} updateFields={updateFields} />
+                    <TimeAwakeSelector {...data} updateFields={updateFields} />
+                    <PeopleInput {...data} updateFields={updateFields} />
+                    {/* <label>People</label> */}
+                    {/* <input className="date" placeholder="People" onChange={(e) => updateFields({ people: e.target.value })}></input> */}
+                    <Location {...data} updateFields={updateFields} />
+                    {/* <label>Location</label> */}
+                    {/* <input className="date" placeholder="Location" onChange={(e) => updateFields({ location: e.target.value })}></input> */}
+                    <TypeDream {...data} updateFields={updateFields} />
+                    {/* <label>Type of Dream</label> */}
+                    {/* <input className="date" placeholder="Type of Dream" onChange={(e) => updateFields({ typeOfDream: e.target.value })}></input> */}
+                    <Dream {...data} updateFields={updateFields} />
+                    {/* <label>Dream</label> */}
+                    {/* <input className="date" placeholder="Dream" onChange={(e) => updateFields({ dream: e.target.value })}></input> */}
                     <button type="submit" className="btn">
                         Submit
                     </button>

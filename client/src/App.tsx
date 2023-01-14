@@ -4,6 +4,7 @@ import { NavBar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import HomePage from './pages/Home';
 import DreamEntry from './pages/DreamEntry';
+//add css font style atkinson hyperlegible
 
 export interface IAppProps {}
 
