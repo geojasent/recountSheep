@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+// import connectDb from './dbConnection';
+const dbConnection_1 = __importDefault(require("./dbConnection"));
 const app = (0, express_1.default)();
 const cors = require('cors');
 const PORT = process.env.PORT || 5000;
@@ -20,22 +22,40 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express_1.default.json());
 //ROUTES
-//add dream to db
+//add dream
 app.post('/dreamentry', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log(req.body);
+        const userId = req.body.userId;
+        const dayOfMonth = req.body.dayOfMonth;
+        const dayOfWeek = req.body.dayOfMonth;
+        const timeToBed = req.body.timeToBed;
+        const timeAwake = req.body.timeAwake;
+        const people = req.body.people;
+        const dreamLocation = req.body.dreamLocation;
+        const typeOfDream = req.body.typeOfDream;
+        const dreamDescription = req.body.dreamDescription;
+        console.log('starting async query');
+        const newDreamEntry = yield dbConnection_1.default.query('INSERT INTO dreamentry (user_id, day_of_month, day_of_week, time_to_bed, time_awake, people, dream_location, type_of_dream, dream_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [userId, dayOfMonth, dayOfWeek, timeToBed, timeAwake, people, dreamLocation, typeOfDream, dreamDescription]);
+        res.json(newDreamEntry.rows[0]);
+        console.log('async query finished');
+        console.log('calling end');
+        yield dbConnection_1.default.end();
+        console.log('pool has drained');
     }
     catch (err) {
         console.log(err);
     }
 }));
+//get homepage
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
 });
+//get dreams
 app.get('/viewdreams', (req, res) => {
     res.send('View submmitted dreams');
 });
+//update dream
 app.listen(PORT, () => {
-    // console.log('Server has started on port', PORT)
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
