@@ -21,26 +21,28 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
 
     const inputs = [];
 
-    for (let i = 1; i <= count; i++) {
-        // peopleArr.push();
-        inputs.push(
-            <input
-                className="personInput"
-                key={`person${i}`}
-                onChange={(e) => {
-                    setTempPeople((prev) => {
-                        prev[i - 1] = e.target.value;
-                        return [...prev];
-                    });
-                    updateFields({ people: tempPeople });
-                }}
-            />
-        );
+    if (count !== 0) {
+        inputs.push(<label key="label">Persons</label>);
+        for (let i = 1; i <= count; i++) {
+            inputs.push(
+                <input
+                    className="personInput"
+                    key={`person${i}`}
+                    onChange={(e) => {
+                        setTempPeople((prev) => {
+                            prev[i - 1] = e.target.value;
+                            return [...prev];
+                        });
+                        updateFields({ people: tempPeople });
+                    }}
+                />
+            );
+        }
     }
 
     return (
         <>
-            <label>Number of People in Dream:</label>
+            <label>Number of People in Dream</label>
             <input key={count} defaultValue={count} />
             <button type="button" disabled={count === 0} onClick={decrement}>
                 -
@@ -48,7 +50,6 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
             <button type="button" onClick={increment}>
                 +
             </button>
-            <label>People in Dream</label>
             {inputs}
         </>
     );

@@ -12,7 +12,7 @@ app.use(express.json());
 //ROUTES
 
 //add dream to db
-app.post('/dreamEntry', async (req: Request, res: Response) => {
+app.post('/dreamentry', async (req: Request, res: Response) => {
     try {
         console.log(req.body);
     } catch (err) {
@@ -22,6 +22,10 @@ app.post('/dreamEntry', async (req: Request, res: Response) => {
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Express + TypeScript Server');
+});
+
+app.get('/viewdreams', (req: Request, res: Response) => {
+    res.send('View submmitted dreams');
 });
 
 app.listen(PORT, () => {

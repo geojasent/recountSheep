@@ -14,14 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
-const cors = require("cors");
+const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 //middleware
 app.use(cors());
 app.use(express_1.default.json());
 //ROUTES
 //add dream to db
-app.post("/dreamEntry", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/dreamentry', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log(req.body);
     }
@@ -29,8 +29,11 @@ app.post("/dreamEntry", (req, res) => __awaiter(void 0, void 0, void 0, function
         console.log(err);
     }
 }));
-app.get("/", (req, res) => {
-    res.send("Express + TypeScript Server");
+app.get('/', (req, res) => {
+    res.send('Express + TypeScript Server');
+});
+app.get('/viewdreams', (req, res) => {
+    res.send('View submmitted dreams');
 });
 app.listen(PORT, () => {
     // console.log('Server has started on port', PORT)

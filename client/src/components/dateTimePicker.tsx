@@ -77,7 +77,7 @@ export function TimeAwakeSelector({ timeAwake, updateFields }: DateTimeProps) {
     return (
         <>
             <label>Minutes Awake</label>
-            <input placeholder="Mintues Awake" onChange={(e) => updateFields({ timeAwake: Number(e.target.value) })}></input>
+            <input onChange={(e) => updateFields({ timeAwake: Number(e.target.value) })}></input>
         </>
     );
 }

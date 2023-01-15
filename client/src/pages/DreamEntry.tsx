@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DateSelector, DaySelector, TimeBedSelector, TimeAwakeSelector } from '../components/dateTimePicker';
 import { PeopleInput } from '../components/PeopleInput';
 import { TypeDream } from '../components/TypeDream';
@@ -36,10 +37,22 @@ const DreamEntry: React.FC = () => {
         });
     }
 
-    const onSubmit = (e: FormEvent) => {
+    const navigate = useNavigate();
+    const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log(data);
-        //strip date and time to send to backend
+        navigate('/viewdreams');
+        try {
+            const body = data;
+            const response = await fetch('http://localhost:5000/dreamentry', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/JSON' },
+                body: JSON.stringify(body)
+            });
+            console.log(response);
+            //clientside vs serverside strip date and time
+        } catch (err) {
+            console.log(err);
+        }
     };
     return (
         <div className="form-container">
@@ -50,18 +63,10 @@ const DreamEntry: React.FC = () => {
                     <TimeBedSelector {...data} updateFields={updateFields} />
                     <TimeAwakeSelector {...data} updateFields={updateFields} />
                     <PeopleInput {...data} updateFields={updateFields} />
-                    {/* <label>People</label> */}
-                    {/* <input className="date" placeholder="People" onChange={(e) => updateFields({ people: e.target.value })}></input> */}
                     <Location {...data} updateFields={updateFields} />
-                    {/* <label>Location</label> */}
-                    {/* <input className="date" placeholder="Location" onChange={(e) => updateFields({ location: e.target.value })}></input> */}
                     <TypeDream {...data} updateFields={updateFields} />
-                    {/* <label>Type of Dream</label> */}
-                    {/* <input className="date" placeholder="Type of Dream" onChange={(e) => updateFields({ typeOfDream: e.target.value })}></input> */}
                     <Dream {...data} updateFields={updateFields} />
-                    {/* <label>Dream</label> */}
-                    {/* <input className="date" placeholder="Dream" onChange={(e) => updateFields({ dream: e.target.value })}></input> */}
-                    <button type="submit" className="btn">
+                    <button type="submit" id="dreamEntrySubmitButton">
                         Submit
                     </button>
                 </form>
