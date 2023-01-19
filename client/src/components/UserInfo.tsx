@@ -1,40 +1,58 @@
 import './UserInfo.modules.css';
 
-export interface ISignUpProps {}
+interface ILoginSignUpData {
+    userName: string;
+    userPassword: string;
+    userEmail: string;
+    // userRole: string;
+}
 
-const UserNameInput: React.FunctionComponent<ISignUpProps> = (props) => {
-    return (
-        <div className="signupInfo">
-            <span>Username</span>
-            <input></input>
-        </div>
-    );
-};
+interface LoginSignUpProps extends ILoginSignUpData {
+    updateFields: (fields: Partial<ILoginSignUpData>) => void;
+}
 
-const LoginInput: React.FunctionComponent<ISignUpProps> = (props) => {
+export function UserNameInput({ userName, updateFields }: LoginSignUpProps) {
     return (
-        <div className="signupInfo">
-            <span>Username or Email</span>
-            <input></input>
-        </div>
+        <>
+            <label>Username</label>
+            <input
+                className="userNameInput"
+                onChange={(e) => {
+                    updateFields({ userName: e.target.value });
+                }}
+            ></input>
+        </>
     );
-};
+}
 
-const PasswordInput: React.FunctionComponent<ISignUpProps> = (props) => {
+export function PasswordInput({ userPassword, updateFields }: LoginSignUpProps) {
     return (
-        <div className="signupInfo">
-            <span>Password</span>
-            <input></input>
-        </div>
+        <>
+            <label>Password</label>
+            <input
+                className="userPassword"
+                onChange={(e) => {
+                    updateFields({ userPassword: e.target.value });
+                }}
+            ></input>
+        </>
     );
-};
-const EmailInput: React.FunctionComponent<ISignUpProps> = (props) => {
+}
+export function EmailInput({ userEmail, updateFields }: LoginSignUpProps) {
     return (
-        <div className="signupInfo">
-            <span>Email</span>
-            <input></input>
-        </div>
+        <>
+            <label>Email</label>
+            <input
+                className="userEmail"
+                onChange={(e) => {
+                    updateFields({ userEmail: e.target.value });
+                }}
+            ></input>
+        </>
     );
-};
+}
 
-export { UserNameInput, LoginInput, PasswordInput, EmailInput };
+// move to subscribe page
+// export function userRoleChange({ userRole: updateFields }: LoginSignUpProps) {
+//     return <></>;
+// }
