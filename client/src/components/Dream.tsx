@@ -1,18 +1,18 @@
 import './Dream.modules.css';
 
 interface IDreamData {
-    dream: string;
+    dreamDescription: string;
 }
 
 interface DreamProps extends IDreamData {
     updateFields: (fields: Partial<IDreamData>) => void;
 }
 
-export function Dream({ dream, updateFields }: DreamProps) {
+export function Dream({ dreamDescription, updateFields }: DreamProps) {
     return (
         <>
             <label>Dream</label>
-            <textarea id="dreamDescriptionInput" onChange={(e) => updateFields({ dream: e.target.value })}></textarea>
+            <textarea id="dreamDescriptionInput" onChange={(e) => updateFields({ dreamDescription: e.target.value })}></textarea>
         </>
     );
 }

@@ -9,28 +9,30 @@ import { FormWrapper } from '../components/FormWrapper';
 import './Form.modules.css';
 
 export interface IFormData {
+    userId: string;
     dayOfMonth: Date | null;
     dayOfWeek: string;
     timeToBed: Date | null;
     timeAwake: number;
-    location: string;
+    dreamLocation: string;
     people: Array<string>;
     typeOfDream: string;
-    dream: string;
+    dreamDescription: string;
 }
-const INITIALDATA: IFormData = {
+const INITIALDREAMDATA: IFormData = {
+    userId: '2',
     dayOfMonth: new Date(),
     dayOfWeek: 'Sunday',
     timeToBed: new Date(),
     timeAwake: 0,
     people: [],
-    location: '',
+    dreamLocation: '',
     typeOfDream: '',
-    dream: ''
+    dreamDescription: ''
 };
 
 const DreamEntry: React.FC = () => {
-    const [data, setData] = useState(INITIALDATA);
+    const [data, setData] = useState(INITIALDREAMDATA);
     function updateFields(fields: Partial<IFormData>) {
         setData((prev) => {
             return { ...prev, ...fields };
@@ -45,9 +47,10 @@ const DreamEntry: React.FC = () => {
             const body = data;
             const response = await fetch('http://localhost:5000/dreamentry', {
                 method: 'POST',
-                headers: { 'Content-type': 'application/JSON' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
+            console.log(data);
             console.log(response);
             //clientside vs serverside strip date and time
         } catch (err) {

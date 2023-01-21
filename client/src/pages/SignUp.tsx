@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormWrapper } from '../components/FormWrapper';
 import { UserNameInput, PasswordInput, EmailInput } from '../components/UserInfo';
 import './LoginSignUp.modules.css';
@@ -24,11 +25,23 @@ const SignUp: React.FC = () => {
         });
     }
 
+    const navigate = useNavigate();
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
             const body = userData;
+            const response = await fetch('http://localhost:5000/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
             console.log(body);
+            //TODO: refine redirect for username taken
+            if (response.status === 200) {
+                navigate('/login');
+            } else {
+                throw new Error('Username is not available');
+            }
         } catch (err) {
             console.log(err);
         }

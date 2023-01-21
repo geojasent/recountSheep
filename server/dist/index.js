@@ -17,18 +17,59 @@ const express_1 = __importDefault(require("express"));
 const dbConnection_1 = __importDefault(require("./dbConnection"));
 const app = (0, express_1.default)();
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 5000;
 //middleware
 app.use(cors());
 app.use(express_1.default.json());
+// const http = require('http');
+// const https = require('https');
+// const fs = require('fs');
+// const options = {
+//     key: fs.readFileSync('../cert/CA/localhost/localhost.decrypted.key'),
+//     cert: fs.readFileSync('../cert/CA/localhost/localhost.crt')
+// };
+// http.createServer(app);
+// https
+//     .createServer(options, app, (req: Request, res: Response) => {
+//         res.writeHead(200);
+//         res.end(`Server is running at http://localhost:${PORT}`);
+//     })
+//     .listen(PORT);
 //ROUTES
+//create user
+app.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log(req.body);
+        const userName = req.body.userName;
+        //hash and salt password
+        const userPassword = req.body.userPassword;
+        const hashedPassword = yield bcrypt.hash(userPassword, 10);
+        console.log(hashedPassword);
+        const userEmail = req.body.userEmail;
+        const userRole = '';
+        console.log('starting async query');
+        const newUserEntry = yield dbConnection_1.default.query('INSERT INTO recountsheepusers (user_username, user_password, user_email, user_role) VALUES ($1, $2, $3, $4) RETURNING *', [
+            userName,
+            hashedPassword,
+            userEmail,
+            userRole
+        ]);
+        res.json(newUserEntry);
+        console.log('async query finished');
+    }
+    catch (err) {
+        console.log(err);
+        res.redirect('/signup');
+    }
+})).listen(443);
 //add dream
 app.post('/dreamentry', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log(req.body);
         const userId = req.body.userId;
         const dayOfMonth = req.body.dayOfMonth;
-        const dayOfWeek = req.body.dayOfMonth;
+        const dayOfWeek = req.body.dayOfWeek;
         const timeToBed = req.body.timeToBed;
         const timeAwake = req.body.timeAwake;
         const people = req.body.people;
@@ -39,9 +80,6 @@ app.post('/dreamentry', (req, res) => __awaiter(void 0, void 0, void 0, function
         const newDreamEntry = yield dbConnection_1.default.query('INSERT INTO dreamentry (user_id, day_of_month, day_of_week, time_to_bed, time_awake, people, dream_location, type_of_dream, dream_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [userId, dayOfMonth, dayOfWeek, timeToBed, timeAwake, people, dreamLocation, typeOfDream, dreamDescription]);
         res.json(newDreamEntry.rows[0]);
         console.log('async query finished');
-        console.log('calling end');
-        yield dbConnection_1.default.end();
-        console.log('pool has drained');
     }
     catch (err) {
         console.log(err);
@@ -59,3 +97,4 @@ app.get('/viewdreams', (req, res) => {
 app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
+//on logout pool end
