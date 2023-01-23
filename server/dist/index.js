@@ -40,8 +40,11 @@ app.use(express_1.default.json());
 //create user
 app.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const responseData = {
+            userNameValid: false
+        };
         console.log(req.body);
-        const userName = req.body.userName;
+        const userName = req.body.userName.toUpperCase();
         //hash and salt password
         const userPassword = req.body.userPassword;
         const hashedPassword = yield bcrypt.hash(userPassword, 10);
@@ -49,20 +52,26 @@ app.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const userEmail = req.body.userEmail;
         const userRole = '';
         console.log('starting async query');
-        const newUserEntry = yield dbConnection_1.default.query('INSERT INTO recountsheepusers (user_username, user_password, user_email, user_role) VALUES ($1, $2, $3, $4) RETURNING *', [
-            userName,
-            hashedPassword,
-            userEmail,
-            userRole
-        ]);
-        res.json(newUserEntry);
+        //check username
+        let userExists = yield dbConnection_1.default.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_username = '${userName}')`);
+        if (!userExists.rows[0].exists) {
+            const newUserEntry = yield dbConnection_1.default.query('INSERT INTO recountsheepusers (user_username, user_password, user_email, user_role) VALUES ($1, $2, $3, $4) RETURNING *', [
+                userName,
+                hashedPassword,
+                userEmail,
+                userRole
+            ]);
+            res.send((responseData.userNameValid = true));
+        }
+        else {
+            res.send((responseData.userNameValid = false));
+        }
         console.log('async query finished');
     }
     catch (err) {
         console.log(err);
-        res.redirect('/signup');
     }
-})).listen(443);
+}));
 //add dream
 app.post('/dreamentry', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

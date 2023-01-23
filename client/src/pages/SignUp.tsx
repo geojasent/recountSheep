@@ -44,19 +44,19 @@ const SignUp: React.FC = () => {
         // console.log(data);
         try {
             const body = data;
-            // const response = await fetch('http://localhost:5000/signup', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(body)
-            // });
-            console.log(userData);
-            console.log(body);
-            //TODO: refine redirect for username taken
-            // if (response.status === 200) {
-            //     navigate('/login');
-            // } else {
-            //     throw new Error('Username is not available');
-            // }
+            const response = await fetch('http://localhost:5000/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            // TODO: refine redirect for username taken
+            response.json().then((res) => {
+                if (res) {
+                    navigate('/login');
+                } else {
+                    alert('Username is unavailable');
+                }
+            });
         } catch (err) {
             console.log(err);
         }
