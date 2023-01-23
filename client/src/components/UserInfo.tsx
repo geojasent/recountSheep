@@ -1,58 +1,112 @@
 import './UserInfo.modules.css';
+// import { FormEvent, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+// import { ValidateField } from './SignupFormErrors';
 
 interface ILoginSignUpData {
     userName: string;
     userPassword: string;
+    confirmPassword: string;
     userEmail: string;
-    // userRole: string;
 }
+
+// interface IValidationData {
+//     formErrors: { user: string; email: string; password: string };
+//     userValid: boolean;
+//     emailValid: boolean;
+//     passwordValid: boolean;
+//     formValid: boolean;
+// }
 
 interface LoginSignUpProps extends ILoginSignUpData {
     updateFields: (fields: Partial<ILoginSignUpData>) => void;
+    // onChange: (fields: Partial<ILoginSignUpData>) => void;
 }
+// interface LoginSignUpValidationProps extends IValidationData {
+//     updateValidation: (fields: Partial<IValidationData>) => void;
+// }
 
 export function UserNameInput({ userName, updateFields }: LoginSignUpProps) {
+    const { register, formState } = useFormContext();
     return (
         <>
             <label>Username</label>
             <input
-                className="userNameInput"
+                {...register('userName', {
+                    required: true,
+                    minLength: 3
+                })}
                 onChange={(e) => {
                     updateFields({ userName: e.target.value });
+                    // ValidateField('userNameInput', e.target.value, { userValid, formValid, formErrors });
                 }}
+                className="userNameInput"
             ></input>
+            {formState.errors.userName && <p className="errorMsg">Username must be at least 3 characters.</p>}
         </>
     );
 }
 
 export function PasswordInput({ userPassword, updateFields }: LoginSignUpProps) {
+    const { register, formState } = useFormContext();
+
     return (
         <>
             <label>Password</label>
             <input
-                className="userPassword"
+                {...register('userPassword', {
+                    required: true,
+                    minLength: 6
+                })}
                 onChange={(e) => {
                     updateFields({ userPassword: e.target.value });
                 }}
+                className="userPassword"
+                type="password"
             ></input>
-        </>
-    );
-}
-export function EmailInput({ userEmail, updateFields }: LoginSignUpProps) {
-    return (
-        <>
-            <label>Email</label>
-            <input
-                className="userEmail"
-                onChange={(e) => {
-                    updateFields({ userEmail: e.target.value });
-                }}
-            ></input>
+            {formState.errors.userPassword && <p className="errorMsg">Password must be at least 6 characters.</p>}
         </>
     );
 }
 
-// move to subscribe page
-// export function userRoleChange({ userRole: updateFields }: LoginSignUpProps) {
-//     return <></>;
-// }
+export function ConfirmPasswordInput({ confirmPassword, updateFields }: LoginSignUpProps) {
+    const { register, formState, watch, getValues } = useFormContext();
+
+    return (
+        <>
+            <label>Confirm Password</label>
+            <input
+                {...register('confirmPassword', {
+                    required: true,
+                    validate: (value) => value === watch('userPassword')
+                })}
+                onChange={(e) => {
+                    updateFields({ confirmPassword: e.target.value });
+                }}
+                className="confirmUserPassword"
+                type="password"
+            ></input>
+            {formState.errors.confirmPassword && <p className="errorMsg">Password must match.</p>}
+        </>
+    );
+}
+export function EmailInput({ userEmail, updateFields }: LoginSignUpProps) {
+    const { register, formState } = useFormContext();
+
+    return (
+        <>
+            <label>Email</label>
+            <input
+                {...register('userEmail', {
+                    required: true,
+                    pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
+                })}
+                onChange={(e) => {
+                    updateFields({ userEmail: e.target.value });
+                }}
+                className="userEmail"
+            ></input>
+            {formState.errors.userEmail && <p className="errorMsg">Enter a valid email.</p>}
+        </>
+    );
+}

@@ -20,9 +20,9 @@ export interface IFormData {
     dreamDescription: string;
 }
 const INITIALDREAMDATA: IFormData = {
-    userId: '2',
+    userId: '',
     dayOfMonth: new Date(),
-    dayOfWeek: 'Sunday',
+    dayOfWeek: '',
     timeToBed: new Date(),
     timeAwake: 0,
     people: [],
@@ -52,7 +52,6 @@ const DreamEntry: React.FC = () => {
             });
             console.log(data);
             console.log(response);
-            //clientside vs serverside strip date and time
         } catch (err) {
             console.log(err);
         }

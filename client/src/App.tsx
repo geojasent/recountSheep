@@ -7,6 +7,8 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import DreamEntry from './pages/DreamEntry';
 import ViewDreams from './pages/ViewDreams';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 //add font selector for normal font and atkinson hyperlegible font
 
 export interface IAppProps {}
