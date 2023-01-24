@@ -1,7 +1,5 @@
 import './UserInfo.modules.css';
-// import { FormEvent, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-// import { ValidateField } from './SignupFormErrors';
 
 interface ILoginSignUpData {
     userName: string;
@@ -10,21 +8,9 @@ interface ILoginSignUpData {
     userEmail: string;
 }
 
-// interface IValidationData {
-//     formErrors: { user: string; email: string; password: string };
-//     userValid: boolean;
-//     emailValid: boolean;
-//     passwordValid: boolean;
-//     formValid: boolean;
-// }
-
 interface LoginSignUpProps extends ILoginSignUpData {
     updateFields: (fields: Partial<ILoginSignUpData>) => void;
-    // onChange: (fields: Partial<ILoginSignUpData>) => void;
 }
-// interface LoginSignUpValidationProps extends IValidationData {
-//     updateValidation: (fields: Partial<IValidationData>) => void;
-// }
 
 export function UserNameInput({ userName, updateFields }: LoginSignUpProps) {
     const { register, formState } = useFormContext();
@@ -38,7 +24,6 @@ export function UserNameInput({ userName, updateFields }: LoginSignUpProps) {
                 })}
                 onChange={(e) => {
                     updateFields({ userName: e.target.value });
-                    // ValidateField('userNameInput', e.target.value, { userValid, formValid, formErrors });
                 }}
                 className="userNameInput"
             ></input>
@@ -70,7 +55,7 @@ export function PasswordInput({ userPassword, updateFields }: LoginSignUpProps) 
 }
 
 export function ConfirmPasswordInput({ confirmPassword, updateFields }: LoginSignUpProps) {
-    const { register, formState, watch, getValues } = useFormContext();
+    const { register, formState, watch } = useFormContext();
 
     return (
         <>
