@@ -3,6 +3,7 @@ import { FormWrapper } from '../components/FormWrapper';
 import { UserNameInput, PasswordInput } from '../components/UserInfo';
 import { useForm, FormProvider } from 'react-hook-form';
 import './LoginSignUp.modules.css';
+import { useNavigate } from 'react-router-dom';
 
 export interface ILoginData {
     userName: string;
@@ -20,6 +21,7 @@ const INITIALUSERDATA: ILoginData = {
 
 const Login: React.FC = () => {
     const [userData, setUserData] = useState(INITIALUSERDATA);
+    const navigate = useNavigate();
     const methods = useForm();
     const {
         register,
@@ -36,24 +38,24 @@ const Login: React.FC = () => {
         try {
             let body = data;
             const response = await fetch('http://localhost:5000/login', {
-                method: 'GET',
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
-            console.log(response);
+            response.json().then((res) => {
+                if (res) {
+                    // console.log(res);
+                    console.log('do something with session?');
+                    navigate('/viewdreams');
+                } else {
+                    // console.log(res);
+                    alert('Username or password is incorrect');
+                }
+            });
         } catch (err) {
             console.log(err);
         }
     };
-    // const onSubmit = async (e: FormEvent) => {
-    //     e.preventDefault();
-    //     try {
-    //         const body = userData;
-    //         console.log(body);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
 
     return (
         <div id="loginContainer">

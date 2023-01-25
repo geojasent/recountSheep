@@ -6,33 +6,39 @@ const bcrypt = require('bcrypt');
 exports.createUserPost = async (req: Request, res: Response) => {
     try {
         const responseData = {
-            userNameValid: false
+            userNameInvalid: false,
+            userEmailInvalid: false,
+            userValid: false
         };
 
-        const userName = req.body.userName.toUpperCase();
+        const username = req.body.userName.toUpperCase();
         //hash and salt password
         const userPassword = req.body.userPassword;
         const hashedPassword = await bcrypt.hash(userPassword, 10);
-        console.log(hashedPassword);
         const userEmail = req.body.userEmail;
         const userRole = '';
 
-        console.log('starting async query');
+        //check db for username
+        let userExists = await pool.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_username = '${username}')`);
+        //check db for email
+        let emailExists = await pool.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_email = '${userEmail}')`);
 
-        //check username
-        let userExists = await pool.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_username = '${userName}')`);
-        if (!userExists.rows[0].exists) {
+        if (!userExists.rows[0].exists && !emailExists.rows[0].exists) {
             const newUserDatabaseEntry = await pool.query('INSERT INTO recountsheepusers (user_username, user_password, user_email, user_role) VALUES ($1, $2, $3, $4) RETURNING *', [
-                userName,
+                username,
                 hashedPassword,
                 userEmail,
                 userRole
             ]);
-            res.send((responseData.userNameValid = true));
+            responseData.userValid = true;
+        } else if (userExists.rows[0].exists && !emailExists.rows[0].exists) {
+            responseData.userNameInvalid = true;
+        } else if (!userExists.rows[0].exists && emailExists.rows[0].exists) {
+            responseData.userEmailInvalid = true;
         } else {
-            res.send((responseData.userNameValid = false));
+            responseData.userValid = false;
         }
-        console.log('async query finished');
+        res.send(responseData);
     } catch (err) {
         console.log(err);
     }

@@ -43,8 +43,11 @@ const SignUp: React.FC = () => {
                 body: JSON.stringify(body)
             });
             response.json().then((res) => {
-                if (res) {
+                console.log(res);
+                if (res.userValid) {
                     navigate('/login');
+                } else if (res.userEmailInvalid) {
+                    alert('Please use a different email');
                 } else {
                     alert('Username is unavailable');
                 }
