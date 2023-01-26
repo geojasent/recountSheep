@@ -21,4 +21,7 @@ CREATE TABLE dreamEntry (
     dream_description TEXT NOT NULL
 );
 
+-- session table
+psql mydatabase < node_modules/connect-pg-simple/table.sql
+
 INSERT INTO recountSheepUsers (user_username, user_password, user_email, user_role)

@@ -3,14 +3,31 @@ import router from './router';
 
 const app: Express = express();
 const cors = require('cors');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 
 const PORT = process.env.PORT || 5000;
 //middleware
 app.use(cors());
 app.use(express.json());
 
-app.use('/', router);
+declare module 'express-session' {
+    export interface SessionData {
+        user: { [key: string]: any };
+    }
+}
 
+app.use(
+    session({
+        store: new pgSession(),
+        secret: process.env.COOKIE_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+    })
+);
+
+app.use('/', router);
 // //get homepage
 // app.get('/', (req: Request, res: Response) => {
 //     res.send('Express + TypeScript Server');

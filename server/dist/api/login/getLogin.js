@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = require('bcrypt');
 exports.createUserPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body);
     }
-    catch (_a) { }
+    catch (err) {
+        console.log(err);
+    }
 });

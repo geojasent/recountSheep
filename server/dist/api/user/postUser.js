@@ -16,32 +16,45 @@ const dbConnection_1 = __importDefault(require("../../dbConnection"));
 const bcrypt = require('bcrypt');
 exports.createUserPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const responseData = {
-            userNameValid: false
+        let responseData = {
+            userNameInvalid: false,
+            userEmailInvalid: false,
+            userValid: false
         };
-        const userName = req.body.userName.toUpperCase();
+        const username = req.body.userName.toUpperCase();
         //hash and salt password
         const userPassword = req.body.userPassword;
         const hashedPassword = yield bcrypt.hash(userPassword, 10);
-        console.log(hashedPassword);
         const userEmail = req.body.userEmail;
         const userRole = '';
-        console.log('starting async query');
-        //check username
-        let userExists = yield dbConnection_1.default.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_username = '${userName}')`);
-        if (!userExists.rows[0].exists) {
+        //check db for username
+        let userExists = yield dbConnection_1.default.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_username = '${username}')`);
+        //check db for email
+        let emailExists = yield dbConnection_1.default.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_email = '${userEmail}')`);
+        if (!userExists.rows[0].exists && !emailExists.rows[0].exists) {
             const newUserDatabaseEntry = yield dbConnection_1.default.query('INSERT INTO recountsheepusers (user_username, user_password, user_email, user_role) VALUES ($1, $2, $3, $4) RETURNING *', [
-                userName,
+                username,
                 hashedPassword,
                 userEmail,
                 userRole
             ]);
-            res.send((responseData.userNameValid = true));
+            req.session.user = {
+                username: username,
+                email: userEmail
+            };
+            responseData = Object.assign({ session: req.session.user });
+            responseData.userValid = true;
+        }
+        else if (userExists.rows[0].exists && !emailExists.rows[0].exists) {
+            responseData.userNameInvalid = true;
+        }
+        else if (!userExists.rows[0].exists && emailExists.rows[0].exists) {
+            responseData.userEmailInvalid = true;
         }
         else {
-            res.send((responseData.userNameValid = false));
+            responseData.userValid = false;
         }
-        console.log('async query finished');
+        res.send(responseData);
     }
     catch (err) {
         console.log(err);

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 exports.createUserPost = async (req: Request, res: Response) => {
     try {
-        const responseData = {
+        let responseData = {
             userNameInvalid: false,
             userEmailInvalid: false,
             userValid: false
@@ -30,6 +30,12 @@ exports.createUserPost = async (req: Request, res: Response) => {
                 userEmail,
                 userRole
             ]);
+
+            req.session.user = {
+                username: username,
+                email: userEmail
+            };
+            responseData = Object.assign({ session: req.session.user });
             responseData.userValid = true;
         } else if (userExists.rows[0].exists && !emailExists.rows[0].exists) {
             responseData.userNameInvalid = true;

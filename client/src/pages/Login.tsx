@@ -43,12 +43,12 @@ const Login: React.FC = () => {
                 body: JSON.stringify(body)
             });
             response.json().then((res) => {
-                if (res) {
-                    // console.log(res);
+                if (res.continueLogin) {
+                    // TODO*******
                     console.log('do something with session?');
                     navigate('/viewdreams');
                 } else {
-                    // console.log(res);
+                    // TODO********
                     alert('Username or password is incorrect');
                 }
             });
