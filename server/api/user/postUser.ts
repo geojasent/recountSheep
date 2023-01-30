@@ -13,9 +13,8 @@ exports.createUserPost = async (req: Request, res: Response) => {
 
         const username = req.body.userName.toUpperCase();
         //hash and salt password
-        const userPassword = req.body.userPassword;
+        const { userPassword, userEmail } = req.body;
         const hashedPassword = await bcrypt.hash(userPassword, 10);
-        const userEmail = req.body.userEmail;
         const userRole = '';
 
         //check db for username
@@ -31,11 +30,11 @@ exports.createUserPost = async (req: Request, res: Response) => {
                 userRole
             ]);
 
-            req.session.user = {
-                username: username,
-                email: userEmail
-            };
-            responseData = Object.assign({ session: req.session.user });
+            // req.session.user = {
+            //     username: username,
+            //     email: userEmail
+            // };
+            // responseData = Object.assign({ session: req.session.user });
             responseData.userValid = true;
         } else if (userExists.rows[0].exists && !emailExists.rows[0].exists) {
             responseData.userNameInvalid = true;

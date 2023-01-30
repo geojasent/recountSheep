@@ -1,9 +1,10 @@
-import { FormEvent, useState } from 'react';
+import { useState, useContext } from 'react';
 import { FormWrapper } from '../components/FormWrapper';
 import { UserNameInput, PasswordInput } from '../components/UserInfo';
 import { useForm, FormProvider } from 'react-hook-form';
 import './LoginSignUp.modules.css';
 import { useNavigate } from 'react-router-dom';
+import { UserSessionContext } from '../components/SessionContext';
 
 export interface ILoginData {
     userName: string;
@@ -21,6 +22,7 @@ const INITIALUSERDATA: ILoginData = {
 
 const Login: React.FC = () => {
     const [userData, setUserData] = useState(INITIALUSERDATA);
+    const setCurrentUser = useContext(UserSessionContext);
     const navigate = useNavigate();
     const methods = useForm();
     const {
@@ -33,22 +35,21 @@ const Login: React.FC = () => {
             return { ...prev, ...fields };
         });
     }
-
     const onSubmit = async (data: any) => {
         try {
             let body = data;
             const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
             response.json().then((res) => {
                 if (res.continueLogin) {
-                    // TODO*******
-                    console.log('do something with session?');
-                    navigate('/viewdreams');
+                    setCurrentUser.id = res.session.id;
+                    sessionStorage.setItem('userId', res.session.id);
+                    navigate('/dreamentry');
                 } else {
-                    // TODO********
                     alert('Username or password is incorrect');
                 }
             });

@@ -12,13 +12,16 @@ exports.loginUserPost = async (req: Request, res: Response) => {
         //check db for user
         const username: string = req.body.userName.toUpperCase();
         const userPassword: string = req.body.userPassword;
-        let storedUsername: string, storedPassword: string, storedEmail: string;
+
+        let storedUserId: string, storedUsername: string, storedPassword: string, storedEmail: string;
 
         const storedRecountSheepUser = await pool.query(`SELECT * FROM recountsheepusers WHERE user_username = '${username}'`);
-        if (storedRecountSheepUser.rows[0]) {
-            storedUsername = storedRecountSheepUser.rows[0].user_username;
-            storedPassword = storedRecountSheepUser.rows[0].user_password;
-            storedEmail = storedRecountSheepUser.rows[0].user_email;
+        const serverUserData = storedRecountSheepUser.rows[0];
+        if (serverUserData) {
+            storedUserId = serverUserData.user_id;
+            storedUsername = serverUserData.user_username;
+            storedPassword = serverUserData.user_password;
+            storedEmail = serverUserData.user_email;
         } else {
             return res.send(loginResponse);
         }
@@ -27,6 +30,7 @@ exports.loginUserPost = async (req: Request, res: Response) => {
         const match = await bcrypt.compare(userPassword, storedPassword);
         if (match) {
             req.session.user = {
+                id: storedUserId,
                 username: storedUsername,
                 email: storedEmail
             };

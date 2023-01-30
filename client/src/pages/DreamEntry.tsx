@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DateSelector, DaySelector, TimeBedSelector, TimeAwakeSelector } from '../components/dateTimePicker';
 import { PeopleInput } from '../components/PeopleInput';
@@ -6,10 +6,11 @@ import { TypeDream } from '../components/TypeDream';
 import { Location } from '../components/Location';
 import { Dream } from '../components/Dream';
 import { FormWrapper } from '../components/FormWrapper';
+import { UserSessionContext } from '../components/SessionContext';
 import './Form.modules.css';
 
 export interface IFormData {
-    userId: string;
+    userId: string | null;
     dayOfMonth: Date | null;
     dayOfWeek: string;
     timeToBed: Date | null;
@@ -20,7 +21,7 @@ export interface IFormData {
     dreamDescription: string;
 }
 const INITIALDREAMDATA: IFormData = {
-    userId: '',
+    userId: '0',
     dayOfMonth: new Date(),
     dayOfWeek: '',
     timeToBed: new Date(),
@@ -38,6 +39,7 @@ const DreamEntry: React.FC = () => {
             return { ...prev, ...fields };
         });
     }
+    data.userId = useContext(UserSessionContext).id;
 
     const navigate = useNavigate();
     const onSubmit = async (e: FormEvent) => {
@@ -47,6 +49,7 @@ const DreamEntry: React.FC = () => {
             const body = data;
             const response = await fetch('http://localhost:5000/dreamentry', {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });

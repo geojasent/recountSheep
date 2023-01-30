@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import router from './router';
 
 const app: Express = express();
@@ -8,7 +8,7 @@ const pgSession = require('connect-pg-simple')(session);
 
 const PORT = process.env.PORT || 5000;
 //middleware
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 
 declare module 'express-session' {

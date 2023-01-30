@@ -23,9 +23,8 @@ exports.createUserPost = (req, res) => __awaiter(void 0, void 0, void 0, functio
         };
         const username = req.body.userName.toUpperCase();
         //hash and salt password
-        const userPassword = req.body.userPassword;
+        const { userPassword, userEmail } = req.body;
         const hashedPassword = yield bcrypt.hash(userPassword, 10);
-        const userEmail = req.body.userEmail;
         const userRole = '';
         //check db for username
         let userExists = yield dbConnection_1.default.query(`SELECT exists (SELECT 1 FROM recountsheepusers WHERE user_username = '${username}')`);
@@ -38,11 +37,11 @@ exports.createUserPost = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 userEmail,
                 userRole
             ]);
-            req.session.user = {
-                username: username,
-                email: userEmail
-            };
-            responseData = Object.assign({ session: req.session.user });
+            // req.session.user = {
+            //     username: username,
+            //     email: userEmail
+            // };
+            // responseData = Object.assign({ session: req.session.user });
             responseData.userValid = true;
         }
         else if (userExists.rows[0].exists && !emailExists.rows[0].exists) {
