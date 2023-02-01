@@ -1,4 +1,8 @@
-.signupInfo {
-    display: flex;
-    flex-direction: column;
+.errorMsg {
+    font-size: smaller;
+    color: rgba(255, 0, 0, 0.724);
+}
+
+.userInputText {
+    margin-top: 10px;
 }

@@ -1,11 +1,9 @@
 import { useState, useContext } from 'react';
-// import { FormWrapper } from '../components/FormWrapper';
 import { UserNameInput, PasswordInput } from '../components/UserInfo';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { UserSessionContext } from '../components/SessionContext';
 import Button from 'react-bootstrap/Button';
-// import './login.modules.css';
 import './Form.modules.css';
 
 export interface ILoginData {
@@ -63,18 +61,14 @@ const Login: React.FC = () => {
     return (
         <div id="loginSignupContainer">
             <FormProvider {...methods}>
-                {/* <FormWrapper title="Login"> */}
                 <span id="loginSignupText">Login</span>
                 <form id="loginSignupForm" onSubmit={methods.handleSubmit(onSubmit)}>
                     <UserNameInput {...userData} updateFields={updateFields} />
                     <PasswordInput {...userData} updateFields={updateFields} />
-                    <div className="d-grid gap-2">
-                        <Button type="submit" className="loginSignupButton" variant="secondary">
-                            Login
-                        </Button>
-                    </div>
+                    <Button type="submit" className="loginSignupButton" variant="secondary" style={{ marginTop: 10 }}>
+                        Login
+                    </Button>
                 </form>
-                {/* </FormWrapper> */}
             </FormProvider>
         </div>
     );

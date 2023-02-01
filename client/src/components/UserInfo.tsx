@@ -17,7 +17,7 @@ export function UserNameInput({ userName, updateFields }: LoginSignUpProps) {
     const { register, formState } = useFormContext();
     return (
         <>
-            <span>Username</span>
+            <span className="userInputText">Username</span>
             <input
                 {...register('userName', {
                     required: true,
@@ -38,7 +38,7 @@ export function PasswordInput({ userPassword, updateFields }: LoginSignUpProps) 
 
     return (
         <>
-            <span>Password</span>
+            <span className="userInputText">Password</span>
             <input
                 {...register('userPassword', {
                     required: true,
@@ -60,7 +60,7 @@ export function ConfirmPasswordInput({ confirmPassword, updateFields }: LoginSig
 
     return (
         <>
-            <label>Confirm Password</label>
+            <label className="userInputText">Confirm Password</label>
             <input
                 {...register('confirmPassword', {
                     required: true,
@@ -81,7 +81,7 @@ export function EmailInput({ userEmail, updateFields }: LoginSignUpProps) {
 
     return (
         <>
-            <label>Email</label>
+            <label className="userInputText">Email</label>
             <input
                 {...register('userEmail', {
                     required: true,
