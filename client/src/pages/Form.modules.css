@@ -1,17 +1,10 @@
-#loginSignupText {
-    font-size: larger;
-    font-weight: bolder;
-    text-align: center;
-    padding: 10px;
-}
-
 #loginSignupContainer {
     display: flex;
     flex-direction: column;
     width: 350px;
     border-style: solid;
     border-radius: 5px;
-    border-color: black;
+    border-color: #ffffff;
     margin: 100px 15px 0px 10px;
     padding: 10px;
     align-content: center;
@@ -19,13 +12,52 @@
 
 #loginSignupForm {
     display: flex;
+    color: #ffffff;
+    text-shadow: 1px 1px 5px black;
     flex-direction: column;
     padding: 10px;
 }
 
-#signupText {
+#dreamEntryForm {
+    display: flex;
+    color: #ffffff;
+    text-shadow: 1px 1px 5px black;
+    flex-direction: column;
+    width: 350px;
+    margin: 10px 15px 35px 10px;
+    padding: 10px;
+    align-content: center;
+}
+
+#loginSignupText {
+    color: #ffffff;
+    text-shadow: 1px 1px 5px black;
+    font-size: larger;
+    font-weight: bolder;
     text-align: center;
-    margin: 10px;
+    padding: 10px;
+}
+
+.dreamInputLabel {
+    padding-top: 10px;
+}
+
+input,
+select,
+textarea {
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.radioSelectionContainer {
+    display: flex;
+    width: 30px;
+    margin: 2px;
+}
+
+.radioSelectionLabel {
+    margin-left: 5px;
 }
 
 @media only screen and (max-device-width: 576px) {
@@ -41,7 +73,7 @@
         width: 90%;
         border-style: solid;
         border-radius: 5px;
-        border-color: black;
+        border-color: #ffffff;
         margin: 8rem 15px 0px 10px;
         padding: 10px;
         align-content: center;

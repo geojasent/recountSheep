@@ -22,7 +22,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
             <UserSessionContextProvider>
                 <NavigationContainer>
                     <BrowserRouter>
-                        <div id="pageContainer">
+                        <div id="pageContainer" style={{ background: 'linear-gradient(#19547b, #ffd89b)' }}>
                             <NavBar />
                             <Routes>
                                 <Route path="/" element={<HomePage />} />

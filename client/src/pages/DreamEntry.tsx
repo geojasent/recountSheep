@@ -5,9 +5,8 @@ import { PeopleInput } from '../components/PeopleInput';
 import { TypeDream } from '../components/TypeDream';
 import { Location } from '../components/Location';
 import { Dream } from '../components/Dream';
-// import { FormWrapper } from '../components/FormWrapper';
 import { UserSessionContext } from '../components/SessionContext';
-// import './Form.modules.css';
+import './Form.modules.css';
 import { Button } from 'react-bootstrap';
 
 export interface IFormData {
@@ -61,23 +60,23 @@ const DreamEntry: React.FC = () => {
         }
     };
     return (
-        <div className="form-container">
-            {/* <FormWrapper title="Dream Entry"> */}
-            <form id="form" onSubmit={onSubmit}>
-                <DateSelector {...data} updateFields={updateFields} />
-                <DaySelector {...data} updateFields={updateFields} />
-                <TimeBedSelector {...data} updateFields={updateFields} />
-                <TimeAwakeSelector {...data} updateFields={updateFields} />
-                <PeopleInput {...data} updateFields={updateFields} />
-                <Location {...data} updateFields={updateFields} />
-                <TypeDream {...data} updateFields={updateFields} />
-                <Dream {...data} updateFields={updateFields} />
-                <Button type="submit" id="dreamEntrySubmitButton">
-                    Submit
-                </Button>
-            </form>
-            {/* </FormWrapper> */}
-        </div>
+        <section id="dreamEntrySection" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <div className="dreamEntryContainer">
+                <form id="dreamEntryForm" onSubmit={onSubmit}>
+                    <DateSelector {...data} updateFields={updateFields} />
+                    <DaySelector {...data} updateFields={updateFields} />
+                    <TimeBedSelector {...data} updateFields={updateFields} />
+                    <TimeAwakeSelector {...data} updateFields={updateFields} />
+                    <PeopleInput {...data} updateFields={updateFields} />
+                    <Location {...data} updateFields={updateFields} />
+                    <TypeDream {...data} updateFields={updateFields} />
+                    <Dream {...data} updateFields={updateFields} />
+                    <Button type="submit" className="loginSignupButton" variant="primary" style={{ marginTop: 10 }}>
+                        Record Dream
+                    </Button>
+                </form>
+            </div>
+        </section>
     );
 };
 

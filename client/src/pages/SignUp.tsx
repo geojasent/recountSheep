@@ -67,7 +67,7 @@ const SignUp: React.FC = () => {
                         <PasswordInput {...register} {...userData} updateFields={updateFields} />
                         <ConfirmPasswordInput {...register} {...userData} updateFields={updateFields} />
                         <EmailInput {...register} {...userData} updateFields={updateFields} />
-                        <Button type="submit" className="loginSignupButton" variant="secondary" style={{ marginTop: 10 }}>
+                        <Button type="submit" className="loginSignupButton" variant="primary" style={{ marginTop: 10 }}>
                             Sign up
                         </Button>
                     </form>

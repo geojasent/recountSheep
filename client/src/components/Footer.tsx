@@ -5,8 +5,9 @@ import './Footer.modules.css';
 export function Footer() {
     return (
         <nav className="footer-container">
-            <NavLink to="/about">About</NavLink>
-            {/* <NavLink to="/contact">Contact</NavLink> */}
+            <NavLink to="/about" style={{ textDecoration: 'none', color: 'black' }}>
+                About
+            </NavLink>
         </nav>
     );
 }

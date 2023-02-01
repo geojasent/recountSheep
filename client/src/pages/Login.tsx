@@ -65,7 +65,7 @@ const Login: React.FC = () => {
                 <form id="loginSignupForm" onSubmit={methods.handleSubmit(onSubmit)}>
                     <UserNameInput {...userData} updateFields={updateFields} />
                     <PasswordInput {...userData} updateFields={updateFields} />
-                    <Button type="submit" className="loginSignupButton" variant="secondary" style={{ marginTop: 10 }}>
+                    <Button type="submit" className="loginSignupButton" variant="primary" style={{ marginTop: 10 }}>
                         Login
                     </Button>
                 </form>

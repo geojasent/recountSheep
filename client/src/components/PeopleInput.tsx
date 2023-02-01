@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 interface IPeopleData {
     people: Array<string>;
@@ -10,13 +11,17 @@ interface PeopleProps extends IPeopleData {
 
 export function PeopleInput({ people, updateFields }: PeopleProps) {
     const [count, setCount] = useState(0);
+    const [buttonDisabled, setbuttonDisabled] = useState(true);
     const [tempPeople, setTempPeople] = useState<Array<string>>([]);
 
+    //count logic
     const decrement = () => {
         setCount(count - 1);
+        if (count === 1 && !buttonDisabled) setbuttonDisabled(true);
     };
     const increment = () => {
         setCount(count + 1);
+        if (count >= 0 && buttonDisabled) setbuttonDisabled(false);
     };
 
     const inputs = [];
@@ -42,14 +47,16 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
 
     return (
         <>
-            <label>Number of People in Dream</label>
-            <input key={count} defaultValue={count} />
-            <button type="button" disabled={count === 0} onClick={decrement}>
-                -
-            </button>
-            <button type="button" onClick={increment}>
-                +
-            </button>
+            <label className="dreamInputLabel">Number of People in Dream</label>
+            <input key={count} defaultValue={count} disabled={true} />
+            <div id="peopleButtonContainer" style={{ display: 'flex', justifyContent: 'spacedaround' }}>
+                <button type="button" style={{ width: '50%', border: 'solid 1px #ccc', borderRadius: '10px' }} disabled={buttonDisabled} onClick={decrement}>
+                    -
+                </button>
+                <button type="button" style={{ width: '50%', border: 'solid 1px #ccc', borderRadius: '10px' }} onClick={increment}>
+                    +
+                </button>
+            </div>
             {inputs}
         </>
     );

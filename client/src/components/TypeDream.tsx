@@ -11,26 +11,26 @@ interface TypeDreamProps extends ITypeDreamData {
 export function TypeDream({ typeOfDream, updateFields }: TypeDreamProps) {
     return (
         <>
-            <label>Type of Dream</label>
-            <p className="radioSelection">
-                <input type="radio" value="Recurring" name="test" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
-                <label>Recurring</label>
+            <label className="dreamInputLabel">Type of Dream</label>
+            <p className="radioSelectionContainer">
+                <input className="radioSelection" type="radio" value="Recurring" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
+                <label className="radioSelectionLabel">Recurring</label>
             </p>
-            <p className="radioSelection">
-                <input type="radio" value="Symbolic" name="test" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
-                <label>Symbolic</label>
+            <p className="radioSelectionContainer">
+                <input className="radioSelection" type="radio" value="Symbolic" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
+                <label className="radioSelectionLabel">Symbolic</label>
             </p>
-            <p className="radioSelection">
-                <input type="radio" value="Lucid" name="test" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
-                <label>Lucid</label>
+            <p className="radioSelectionContainer">
+                <input className="radioSelection" type="radio" value="Lucid" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
+                <label className="radioSelectionLabel">Lucid</label>
             </p>
-            <p className="radioSelection">
-                <input type="radio" value="Nightmare" name="test" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
-                <label>Nightmare</label>
+            <p className="radioSelectionContainer">
+                <input className="radioSelection" type="radio" value="Nightmare" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
+                <label className="radioSelectionLabel">Nightmare</label>
             </p>
-            <p className="radioSelection">
-                <input type="radio" value="Other" name="test" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
-                <label>Other</label>
+            <p className="radioSelectionContainer">
+                <input className="radioSelection" type="radio" value="Other" onChange={(e) => updateFields({ typeOfDream: e.target.value })} />
+                <label className="radioSelectionLabel">Other</label>
             </p>
         </>
     );

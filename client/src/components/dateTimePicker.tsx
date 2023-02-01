@@ -17,7 +17,7 @@ export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
     const [startDate, setStartDate] = useState<Date | null>(dayOfMonth);
     return (
         <>
-            <label>Date</label>
+            <label className="dreamInputLabel">Date</label>
             <DatePicker
                 selected={startDate}
                 onChange={(date) => {
@@ -33,7 +33,7 @@ export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
 export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
     return (
         <>
-            <label>Day of Week</label>
+            <label className="dreamInputLabel">Day of Week</label>
             <select
                 value={dayOfWeek}
                 onChange={(e) => {
@@ -56,7 +56,7 @@ export function TimeBedSelector({ timeToBed, updateFields }: DateTimeProps) {
     const [startDate, setStartDate] = useState<Date | null>(timeToBed);
     return (
         <>
-            <label>Time to Bed</label>
+            <label className="dreamInputLabel">Time to Bed</label>
             <DatePicker
                 selected={startDate}
                 onChange={(date) => {
@@ -76,7 +76,7 @@ export function TimeBedSelector({ timeToBed, updateFields }: DateTimeProps) {
 export function TimeAwakeSelector({ timeAwake, updateFields }: DateTimeProps) {
     return (
         <>
-            <label>Minutes Awake</label>
+            <label className="dreamInputLabel">Minutes Awake</label>
             <input onChange={(e) => updateFields({ timeAwake: Number(e.target.value) })}></input>
         </>
     );

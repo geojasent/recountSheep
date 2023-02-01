@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 export function NavBar() {
     return (
-        <Navbar bg="dark" variant="dark" expand="sm">
+        <Navbar style={{ backgroundColor: '#E5E4E2' }} expand="sm">
             <Container>
                 <Navbar.Brand href="/">RecountSheep</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

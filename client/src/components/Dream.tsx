@@ -11,7 +11,7 @@ interface DreamProps extends IDreamData {
 export function Dream({ dreamDescription, updateFields }: DreamProps) {
     return (
         <>
-            <label>Dream</label>
+            <label className="dreamInputLabel">Dream</label>
             <textarea id="dreamDescriptionInput" onChange={(e) => updateFields({ dreamDescription: e.target.value })}></textarea>
         </>
     );
