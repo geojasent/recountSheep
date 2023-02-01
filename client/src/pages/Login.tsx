@@ -1,10 +1,12 @@
 import { useState, useContext } from 'react';
-import { FormWrapper } from '../components/FormWrapper';
+// import { FormWrapper } from '../components/FormWrapper';
 import { UserNameInput, PasswordInput } from '../components/UserInfo';
 import { useForm, FormProvider } from 'react-hook-form';
-import './LoginSignUp.modules.css';
 import { useNavigate } from 'react-router-dom';
 import { UserSessionContext } from '../components/SessionContext';
+import Button from 'react-bootstrap/Button';
+// import './login.modules.css';
+import './Form.modules.css';
 
 export interface ILoginData {
     userName: string;
@@ -48,7 +50,7 @@ const Login: React.FC = () => {
                 if (res.continueLogin) {
                     setCurrentUser.id = res.session.id;
                     sessionStorage.setItem('userId', res.session.id);
-                    navigate('/dreamentry');
+                    navigate('/viewdreams');
                 } else {
                     alert('Username or password is incorrect');
                 }
@@ -59,17 +61,20 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div id="loginContainer">
+        <div id="loginSignupContainer">
             <FormProvider {...methods}>
-                <FormWrapper title="Login">
-                    <form id="form" onSubmit={methods.handleSubmit(onSubmit)}>
-                        <UserNameInput {...userData} updateFields={updateFields} />
-                        <PasswordInput {...userData} updateFields={updateFields} />
-                        <button type="submit" className="loginSignupButton">
+                {/* <FormWrapper title="Login"> */}
+                <span id="loginSignupText">Login</span>
+                <form id="loginSignupForm" onSubmit={methods.handleSubmit(onSubmit)}>
+                    <UserNameInput {...userData} updateFields={updateFields} />
+                    <PasswordInput {...userData} updateFields={updateFields} />
+                    <div className="d-grid gap-2">
+                        <Button type="submit" className="loginSignupButton" variant="secondary">
                             Login
-                        </button>
-                    </form>
-                </FormWrapper>
+                        </Button>
+                    </div>
+                </form>
+                {/* </FormWrapper> */}
             </FormProvider>
         </div>
     );

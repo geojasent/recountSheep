@@ -1,8 +1,57 @@
-@media only screen and (max-device-width: 600px) {
-    #form {
+#loginSignupText {
+    font-size: larger;
+    font-weight: bolder;
+    text-align: center;
+    padding: 10px;
+}
+
+#loginSignupContainer {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: black;
+    margin: 100px 15px 0px 10px;
+    padding: 10px;
+    align-content: center;
+}
+
+#loginSignupForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+#signupText {
+    text-align: center;
+    margin: 10px;
+}
+
+@media only screen and (max-device-width: 576px) {
+    #loginSignupText {
+        font-size: larger;
+        font-weight: bolder;
+        text-align: center;
+        padding: 10px;
+    }
+    #loginSignupContainer {
         display: flex;
         flex-direction: column;
-        background-color: orange;
-        width: 95vw;
+        width: 90%;
+        border-style: solid;
+        border-radius: 5px;
+        border-color: black;
+        margin: 8rem 15px 0px 10px;
+        padding: 10px;
+        align-content: center;
+    }
+
+    #loginSignupForm {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
     }
 }

@@ -1,5 +1,6 @@
 import './UserInfo.modules.css';
 import { useFormContext } from 'react-hook-form';
+import { Form } from 'react-bootstrap';
 
 interface ILoginSignUpData {
     userName: string;
@@ -16,7 +17,7 @@ export function UserNameInput({ userName, updateFields }: LoginSignUpProps) {
     const { register, formState } = useFormContext();
     return (
         <>
-            <label>Username</label>
+            <span>Username</span>
             <input
                 {...register('userName', {
                     required: true,
@@ -37,7 +38,7 @@ export function PasswordInput({ userPassword, updateFields }: LoginSignUpProps) 
 
     return (
         <>
-            <label>Password</label>
+            <span>Password</span>
             <input
                 {...register('userPassword', {
                     required: true,

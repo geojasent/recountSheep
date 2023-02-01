@@ -6,12 +6,16 @@ export interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
     return (
-        <div>
-            <p>This is the home page.</p>
+        <div id="homeSection" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             <Login />
-            <p>
-                <Link to="/signup">Sign Up!</Link>
-            </p>
+            <section id="signupText">
+                <span>
+                    Don't have an account?{' '}
+                    <Link id="signupLink" to="/signup" style={{ textDecoration: 'none' }}>
+                        Sign Up!
+                    </Link>
+                </span>
+            </section>
         </div>
     );
 };

@@ -1,38 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import './ViewDream.modules.css';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 
 export function DreamComponent() {
     const [dreams, setDreams] = useState<any[]>([]);
-    console.log(sessionStorage.getItem('userId'));
     let storedDreams: any;
     const dreamCard: any = [];
 
-    const getDream = async () => {
-        dreamCard.push(<div key={`test}`}>testing</div>);
-        try {
-            const response = await fetch('http://localhost:5000/viewdreams', {
-                method: 'GET',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' }
-            });
-            response.json().then((res) => {
-                storedDreams = res;
-                setDreams(storedDreams);
-            });
-        } catch (err) {
-            console.log(err);
-        }
-    };
+    useFocusEffect(
+        useCallback(() => {
+            let isActive = true;
 
-    useEffect(() => {
-        getDream();
-    }, []);
+            const getDream = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/viewdreams', {
+                        method: 'GET',
+                        credentials: 'include',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    response.json().then((res) => {
+                        if (isActive) {
+                            storedDreams = res;
+                            setDreams(storedDreams);
+                        }
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            getDream();
+            return () => {
+                isActive = false;
+            };
+        }, [])
+    );
 
     return (
         <>
-            <div>test dreams</div>
             {dreams.map((dream) => {
                 return (
-                    <div className="dreamCard" key={dream.day_of_month}>
+                    <div className="dreamContainer" key={dream.day_of_month}>
                         <p>Date: {dream.day_of_month}</p>
                         <p>Day of Week: {dream.day_of_week}</p>
                         <p>Time to Bed: {dream.time_to_bed}</p>

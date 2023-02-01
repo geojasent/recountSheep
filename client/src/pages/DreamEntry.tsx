@@ -5,9 +5,10 @@ import { PeopleInput } from '../components/PeopleInput';
 import { TypeDream } from '../components/TypeDream';
 import { Location } from '../components/Location';
 import { Dream } from '../components/Dream';
-import { FormWrapper } from '../components/FormWrapper';
+// import { FormWrapper } from '../components/FormWrapper';
 import { UserSessionContext } from '../components/SessionContext';
-import './Form.modules.css';
+// import './Form.modules.css';
+import { Button } from 'react-bootstrap';
 
 export interface IFormData {
     userId: string | null;
@@ -61,21 +62,21 @@ const DreamEntry: React.FC = () => {
     };
     return (
         <div className="form-container">
-            <FormWrapper title="Dream Entry">
-                <form id="form" onSubmit={onSubmit}>
-                    <DateSelector {...data} updateFields={updateFields} />
-                    <DaySelector {...data} updateFields={updateFields} />
-                    <TimeBedSelector {...data} updateFields={updateFields} />
-                    <TimeAwakeSelector {...data} updateFields={updateFields} />
-                    <PeopleInput {...data} updateFields={updateFields} />
-                    <Location {...data} updateFields={updateFields} />
-                    <TypeDream {...data} updateFields={updateFields} />
-                    <Dream {...data} updateFields={updateFields} />
-                    <button type="submit" id="dreamEntrySubmitButton">
-                        Submit
-                    </button>
-                </form>
-            </FormWrapper>
+            {/* <FormWrapper title="Dream Entry"> */}
+            <form id="form" onSubmit={onSubmit}>
+                <DateSelector {...data} updateFields={updateFields} />
+                <DaySelector {...data} updateFields={updateFields} />
+                <TimeBedSelector {...data} updateFields={updateFields} />
+                <TimeAwakeSelector {...data} updateFields={updateFields} />
+                <PeopleInput {...data} updateFields={updateFields} />
+                <Location {...data} updateFields={updateFields} />
+                <TypeDream {...data} updateFields={updateFields} />
+                <Dream {...data} updateFields={updateFields} />
+                <Button type="submit" id="dreamEntrySubmitButton">
+                    Submit
+                </Button>
+            </form>
+            {/* </FormWrapper> */}
         </div>
     );
 };

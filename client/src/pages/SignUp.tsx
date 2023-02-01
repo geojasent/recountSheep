@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FormWrapper } from '../components/FormWrapper';
+// import { FormWrapper } from '../components/FormWrapper';
 import { UserNameInput, PasswordInput, EmailInput, ConfirmPasswordInput } from '../components/UserInfo';
 import { useForm, FormProvider } from 'react-hook-form';
-import './LoginSignUp.modules.css';
+import './Form.modules.css';
 
 export interface ISignUpData {
     userName: string;
@@ -60,17 +60,17 @@ const SignUp: React.FC = () => {
     return (
         <div id="signupContainer">
             <FormProvider {...methods}>
-                <FormWrapper title="Sign Up">
-                    <form id="form" onSubmit={methods.handleSubmit(onSubmit)}>
-                        <UserNameInput {...register} {...userData} updateFields={updateFields} />
-                        <PasswordInput {...register} {...userData} updateFields={updateFields} />
-                        <ConfirmPasswordInput {...register} {...userData} updateFields={updateFields} />
-                        <EmailInput {...register} {...userData} updateFields={updateFields} />
-                        <button type="submit" className="loginSignupButton">
-                            Sign up
-                        </button>
-                    </form>
-                </FormWrapper>
+                {/* <FormWrapper title="Sign Up"> */}
+                <form id="form" onSubmit={methods.handleSubmit(onSubmit)}>
+                    <UserNameInput {...register} {...userData} updateFields={updateFields} />
+                    <PasswordInput {...register} {...userData} updateFields={updateFields} />
+                    <ConfirmPasswordInput {...register} {...userData} updateFields={updateFields} />
+                    <EmailInput {...register} {...userData} updateFields={updateFields} />
+                    <button type="submit" className="loginSignupButton">
+                        Sign up
+                    </button>
+                </form>
+                {/* </FormWrapper> */}
             </FormProvider>
         </div>
     );

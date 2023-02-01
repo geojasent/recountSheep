@@ -1,14 +1,21 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './Navbar.modules.css';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 export function NavBar() {
     return (
-        <nav className="navbar-container">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/dreamentry">Dream Entry</NavLink>
-            <NavLink to="/viewdreams">View Dreams</NavLink>
-            <NavLink to="/logout">Logout</NavLink>
-        </nav>
+        <Navbar bg="dark" variant="dark" expand="sm">
+            <Container>
+                <Navbar.Brand href="/">RecountSheep</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/viewdreams">View Dreams</Nav.Link>
+                        <Nav.Link href="/dreamentry">Dream Entry</Nav.Link>
+                        <Nav.Link href="/logout">Logout</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }
