@@ -1,7 +1,8 @@
 .errorMsg {
     font-size: smaller;
-    color: rgba(255, 0, 0, 0.724);
+    color: rgba(255, 0, 0, 0.813);
     margin: 0px;
+    text-shadow: none;
 }
 
 .userInputText {

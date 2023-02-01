@@ -12,6 +12,7 @@ import { UserSessionContextProvider } from './components/SessionContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavigationContainer } from '@react-navigation/native';
 import './components/pageContainer.modules.css';
+import { Helmet } from 'react-helmet';
 
 //add font selector for normal font and atkinson hyperlegible font
 export interface IAppProps {}
@@ -21,6 +22,10 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
         <>
             <UserSessionContextProvider>
                 <NavigationContainer>
+                    <Helmet>
+                        <title>RecountSheep</title>
+                        <meta name="description" content="Default Title" />
+                    </Helmet>
                     <BrowserRouter>
                         <div id="pageContainer" style={{ background: 'linear-gradient(#19547b, #ffd89b)' }}>
                             <NavBar />

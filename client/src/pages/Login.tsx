@@ -59,18 +59,20 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div id="loginSignupContainer">
-            <FormProvider {...methods}>
-                <span id="loginSignupText">Login</span>
-                <form id="loginSignupForm" onSubmit={methods.handleSubmit(onSubmit)}>
-                    <UserNameInput {...userData} updateFields={updateFields} />
-                    <PasswordInput {...userData} updateFields={updateFields} />
-                    <Button type="submit" className="loginSignupButton" variant="primary" style={{ marginTop: 10 }}>
-                        Login
-                    </Button>
-                </form>
-            </FormProvider>
-        </div>
+        <section id="loginSection" style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <div id="loginSignupContainer">
+                <FormProvider {...methods}>
+                    <span id="loginSignupText">Login</span>
+                    <form id="loginSignupForm" onSubmit={methods.handleSubmit(onSubmit)}>
+                        <UserNameInput {...userData} updateFields={updateFields} />
+                        <PasswordInput {...userData} updateFields={updateFields} />
+                        <Button type="submit" className="loginSignupButton" variant="primary" style={{ marginTop: 10 }}>
+                            Login
+                        </Button>
+                    </form>
+                </FormProvider>
+            </div>
+        </section>
     );
 };
 
