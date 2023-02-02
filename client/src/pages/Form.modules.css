@@ -50,6 +50,11 @@ textarea {
     width: 100%;
 }
 
+.react-datepicker__tab-loop,
+.react-datepicker-ignore-onclickoutside {
+    text-shadow: none;
+}
+
 .radioSelectionContainer {
     display: flex;
     width: 30px;

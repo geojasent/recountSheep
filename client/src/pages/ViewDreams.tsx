@@ -11,9 +11,14 @@ const DisplayDreams: React.FunctionComponent = () => {
     };
     return (
         <Container>
-            <Button variant="primary" onClick={goToDream}>
-                Add another dream
-            </Button>
+            <div id="dreamEntryActionContainer" style={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+                {/* <input placeholder="Search"></input> */}
+                <Button variant="primary" style={{ margin: '10px' }} onClick={goToDream}>
+                    Add another dream
+                </Button>
+                {/* <Button>Filter</Button> */}
+            </div>
+            {/* pass search into component to display */}
             <DreamComponent />
         </Container>
     );

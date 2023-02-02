@@ -1,8 +1,5 @@
-#dreamContainer {
-}
-
-#dreamCard {
-    background-color: brown;
+.dreamContainer {
+    padding: 5px;
 }
 
 @media (min-width: 768px) {

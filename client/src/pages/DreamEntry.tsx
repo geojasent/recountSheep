@@ -13,7 +13,8 @@ export interface IFormData {
     userId: string | null;
     dayOfMonth: Date | null;
     dayOfWeek: string;
-    timeToBed: Date | null;
+    dateTimeToBed: Date | null;
+    timeToBed: string;
     timeAwake: number;
     dreamLocation: string;
     people: Array<string>;
@@ -23,8 +24,9 @@ export interface IFormData {
 const INITIALDREAMDATA: IFormData = {
     userId: '0',
     dayOfMonth: new Date(),
-    dayOfWeek: '',
-    timeToBed: new Date(),
+    dayOfWeek: String(new Date()).slice(0, 3),
+    dateTimeToBed: new Date(),
+    timeToBed: '',
     timeAwake: 0,
     people: [],
     dreamLocation: '',
@@ -34,6 +36,7 @@ const INITIALDREAMDATA: IFormData = {
 
 const DreamEntry: React.FC = () => {
     const [data, setData] = useState(INITIALDREAMDATA);
+    console.log(data.timeToBed);
     function updateFields(fields: Partial<IFormData>) {
         setData((prev) => {
             return { ...prev, ...fields };

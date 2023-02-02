@@ -5,7 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 interface IDateTimeData {
     dayOfMonth: Date | null;
     dayOfWeek: string;
-    timeToBed: Date | null;
+    dateTimeToBed: Date | null;
+    timeToBed: string;
     timeAwake: number;
 }
 
@@ -29,8 +30,30 @@ export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
     );
 }
 
-//TODO: auto update on date selector
-export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
+export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps, { dayOfMonth }: DateTimeProps) {
+    switch (dayOfWeek) {
+        case 'Sun':
+            dayOfWeek = 'Sunday';
+            break;
+        case 'Mon':
+            dayOfWeek = 'Monday';
+            break;
+        case 'Tues':
+            dayOfWeek = 'Tuesday';
+            break;
+        case 'Wed':
+            dayOfWeek = 'Wednesday';
+            break;
+        case 'Thu':
+            dayOfWeek = 'Thursday';
+            break;
+        case 'Fri':
+            dayOfWeek = 'Friday';
+            break;
+        case 'Sat':
+            dayOfWeek = 'Saturday';
+    }
+
     return (
         <>
             <label className="dreamInputLabel">Day of Week</label>
@@ -52,16 +75,18 @@ export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
     );
 }
 
-export function TimeBedSelector({ timeToBed, updateFields }: DateTimeProps) {
-    const [startDate, setStartDate] = useState<Date | null>(timeToBed);
+export function TimeBedSelector({ dateTimeToBed, timeToBed, updateFields }: DateTimeProps) {
+    const [startDate, setStartDate] = useState<null | Date>(dateTimeToBed);
+    // const [bedTime, setBedTime] = useState<string>();
     return (
         <>
             <label className="dreamInputLabel">Time to Bed</label>
             <DatePicker
                 selected={startDate}
                 onChange={(date) => {
-                    updateFields({ timeToBed: date });
+                    updateFields({ dateTimeToBed: date });
                     setStartDate(date);
+                    updateFields({ timeToBed: String(date).slice(16, 21) });
                 }}
                 showTimeSelect
                 showTimeSelectOnly
