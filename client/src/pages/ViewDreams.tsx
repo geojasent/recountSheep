@@ -3,6 +3,8 @@ import { DreamComponent } from '../components/ViewDream';
 import Container from 'react-bootstrap/Container';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import './viewDreams.modules.css';
+import Row from 'react-bootstrap/Row';
 
 const DisplayDreams: React.FunctionComponent = () => {
     const navigate = useNavigate();
@@ -10,17 +12,21 @@ const DisplayDreams: React.FunctionComponent = () => {
         navigate('/dreamentry');
     };
     return (
-        <Container>
-            <div id="dreamEntryActionContainer" style={{ display: 'flex', flexDirection: 'column', margin: '10px' }}>
+        <div id="dreamEntryPageContainer">
+            <div id="dreamEntryActionContainer">
                 {/* <input placeholder="Search"></input> */}
-                <Button variant="primary" style={{ margin: '10px' }} onClick={goToDream}>
+                <Button id="buttonStyle" variant="primary" style={{ margin: '10px' }} onClick={goToDream}>
                     Add another dream
                 </Button>
                 {/* <Button>Filter</Button> */}
+                {/* pass search into component to display */}
             </div>
-            {/* pass search into component to display */}
-            <DreamComponent />
-        </Container>
+            <Container>
+                <Row xs={1} md={2} lg={3} className="g-4">
+                    <DreamComponent />
+                </Row>
+            </Container>
+        </div>
     );
 };
 

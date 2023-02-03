@@ -1,0 +1,17 @@
+#dreamEntryPageContainer {
+    /* min-height: 100vh; */
+    /* position: relative; */
+    padding-bottom: 34px;
+}
+#dreamEntryActionContainer {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+#buttonStyle {
+    max-width: 250px;
+}
+
+.dreamItem {
+    margin: 10px;
+}

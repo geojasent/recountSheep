@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 interface IDateTimeData {
     dayOfMonth: Date | null;
+    date: string | null;
     dayOfWeek: string;
     dateTimeToBed: Date | null;
     timeToBed: string;
@@ -16,21 +17,42 @@ interface DateTimeProps extends IDateTimeData {
 
 export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
     const [startDate, setStartDate] = useState<Date | null>(dayOfMonth);
+
+    const longDayOfWeek = (shortHand: string) => {
+        switch (shortHand) {
+            case 'Sun':
+                return 'Sunday';
+            case 'Mon':
+                return 'Monday';
+            case 'Tue':
+                return 'Tuesday';
+            case 'Wed':
+                return 'Wednesday';
+            case 'Thu':
+                return 'Thursday';
+            case 'Fri':
+                return 'Friday';
+            case 'Sat':
+                return 'Saturday';
+        }
+    };
     return (
         <>
             <label className="dreamInputLabel">Date</label>
             <DatePicker
                 selected={startDate}
-                onChange={(date) => {
-                    updateFields({ dayOfMonth: date });
-                    setStartDate(date);
+                onChange={(selected: Date) => {
+                    updateFields({ dayOfWeek: longDayOfWeek(String(selected).slice(0, 3)) });
+                    const dateString = new Date(selected).toLocaleDateString();
+                    updateFields({ date: dateString });
+                    setStartDate(selected);
                 }}
             />
         </>
     );
 }
 
-export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps, { dayOfMonth }: DateTimeProps) {
+export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
     switch (dayOfWeek) {
         case 'Sun':
             dayOfWeek = 'Sunday';
@@ -38,7 +60,7 @@ export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps, { dayOfM
         case 'Mon':
             dayOfWeek = 'Monday';
             break;
-        case 'Tues':
+        case 'Tue':
             dayOfWeek = 'Tuesday';
             break;
         case 'Wed':
@@ -77,7 +99,6 @@ export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps, { dayOfM
 
 export function TimeBedSelector({ dateTimeToBed, timeToBed, updateFields }: DateTimeProps) {
     const [startDate, setStartDate] = useState<null | Date>(dateTimeToBed);
-    // const [bedTime, setBedTime] = useState<string>();
     return (
         <>
             <label className="dreamInputLabel">Time to Bed</label>

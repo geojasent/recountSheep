@@ -9,7 +9,7 @@ interface DreamProps extends ILocationData {
 export function Location({ dreamLocation, updateFields }: DreamProps) {
     return (
         <>
-            <label>Location</label>
+            <label className="dreamInputLabel">Location</label>
             <input onChange={(e) => updateFields({ dreamLocation: e.target.value })}></input>
         </>
     );

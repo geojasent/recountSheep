@@ -17,8 +17,8 @@ exports.createDreamEntryPost = (req, res) => __awaiter(void 0, void 0, void 0, f
     var _a;
     try {
         const userId = (_a = req.session.user) === null || _a === void 0 ? void 0 : _a.id;
-        const { dayOfMonth, dayOfWeek, timeToBed, timeAwake, people, dreamLocation, typeOfDream, dreamDescription } = req.body;
-        const newDreamEntry = yield dbConnection_1.default.query('INSERT INTO dreamentry (user_id, day_of_month, day_of_week, time_to_bed, time_awake, people, dream_location, type_of_dream, dream_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [userId, dayOfMonth, dayOfWeek, timeToBed, timeAwake, people, dreamLocation, typeOfDream, dreamDescription]);
+        const { date, dayOfWeek, timeToBed, timeAwake, people, dreamLocation, typeOfDream, dreamDescription } = req.body;
+        const newDreamEntry = yield dbConnection_1.default.query('INSERT INTO dreamentry (user_id, day_of_month, day_of_week, time_to_bed, time_awake, people, dream_location, type_of_dream, dream_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *', [userId, date, dayOfWeek, timeToBed, timeAwake, people, dreamLocation, typeOfDream, dreamDescription]);
         res.json(newDreamEntry.rows[0]);
     }
     catch (err) {

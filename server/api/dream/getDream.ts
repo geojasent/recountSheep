@@ -7,7 +7,7 @@ export default async function getDream(req: Request, res: Response) {
         const sessionId = req.session.user?.id;
         //if get request is search do a different query
         const storedDreams = await pool.query(
-            `SELECT day_of_month, day_of_week, time_to_bed, time_awake, people, dream_location, type_of_dream, dream_description FROM dreamentry WHERE user_id = ${sessionId}`
+            `SELECT dream_id, day_of_month, day_of_week, time_to_bed, time_awake, people, dream_location, type_of_dream, dream_description FROM dreamentry WHERE user_id = ${sessionId}`
         );
         res.send(storedDreams.rows);
     } catch (err) {
