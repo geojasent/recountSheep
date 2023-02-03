@@ -46,6 +46,7 @@ export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
                     const dateString = new Date(selected).toLocaleDateString();
                     updateFields({ date: dateString });
                     setStartDate(selected);
+                    console.log(dateString);
                 }}
             />
         </>

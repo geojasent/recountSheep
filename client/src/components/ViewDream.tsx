@@ -6,8 +6,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 export function DreamComponent() {
     const [dreams, setDreams] = useState<any[]>([]);
 
-    let storedDreams: any;
-
     useFocusEffect(
         useCallback(() => {
             let isActive = true;
@@ -21,8 +19,15 @@ export function DreamComponent() {
                     });
                     response.json().then((res) => {
                         if (isActive) {
-                            storedDreams = res;
-                            setDreams(storedDreams);
+                            let sortDate = res
+                                .map((obj: any) => {
+                                    return { ...obj, day_of_month: new Date(obj.day_of_month) };
+                                })
+                                .sort((a: any, b: any) => b.day_of_month - a.day_of_month);
+                            let convertDateToMMDDYYY = sortDate.map((obj: any) => {
+                                return { ...obj, day_of_month: obj.day_of_month.toLocaleDateString() };
+                            });
+                            setDreams(convertDateToMMDDYYY);
                         }
                     });
                 } catch (err) {
