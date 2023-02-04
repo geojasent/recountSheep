@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { Card, Dropdown, Accordion } from 'react-bootstrap';
+import { Card, Dropdown, Accordion, Modal, Button } from 'react-bootstrap';
 import AccordionBody from 'react-bootstrap/esm/AccordionBody';
 
 export function DreamComponent() {
     const [dreams, setDreams] = useState<any[]>([]);
-    // const [toggle, setToggle] = useState(false);
 
     useFocusEffect(
         useCallback(() => {
@@ -62,6 +61,29 @@ export function DreamComponent() {
         return stringTemp.slice(0, -5) + ':' + stringTemp.slice(-5);
     }
 
+    //Modal Popup
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    function updateDream() {}
+
+    //WORK ON THIS******** and node delete
+    const deleteDream = async (dream_id: number) => {
+        try {
+            const response = await fetch(`http://localhost:5000/deletedream/` + dream_id, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            response.json().then((res) => {
+                console.log(res);
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <>
             {dreams.map((dream) => {
@@ -74,8 +96,54 @@ export function DreamComponent() {
                                     <Dropdown>
                                         <Dropdown.Toggle split variant="basic" id="dropdown-split-basic" />
                                         <Dropdown.Menu>
-                                            <Dropdown.Item href="/updateDream">Update</Dropdown.Item>
-                                            <Dropdown.Item href="/deleteDream">Delete</Dropdown.Item>
+                                            <Dropdown.Item
+                                                onClick={() => {
+                                                    updateDream();
+                                                }}
+                                            >
+                                                Update
+                                            </Dropdown.Item>
+                                            <Dropdown.Item
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleShow();
+                                                }}
+                                            >
+                                                <Modal
+                                                    show={show}
+                                                    onClick={(e: any) => {
+                                                        e.stopPropagation();
+                                                        handleClose();
+                                                    }}
+                                                >
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title>Delete Dream</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>Are you sure you want to delete this dream?</Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button
+                                                            variant="secondary"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleClose();
+                                                            }}
+                                                        >
+                                                            Cancel
+                                                        </Button>
+                                                        <Button
+                                                            variant="primary"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleClose();
+                                                                deleteDream(dream.dream_id);
+                                                            }}
+                                                        >
+                                                            Delete
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
+                                                Delete
+                                            </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
