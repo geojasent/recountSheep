@@ -68,7 +68,6 @@ export function DreamComponent() {
 
     function updateDream() {}
 
-    //WORK ON THIS******** and node delete
     const deleteDream = async (dream_id: number) => {
         try {
             const response = await fetch(`http://localhost:5000/deletedream/` + dream_id, {
@@ -77,7 +76,11 @@ export function DreamComponent() {
                 headers: { 'Content-Type': 'application/json' }
             });
             response.json().then((res) => {
-                console.log(res);
+                if (res === 1) {
+                    window.location.reload();
+                } else {
+                    alert('Error ocurred');
+                }
             });
         } catch (err) {
             console.log(err);
