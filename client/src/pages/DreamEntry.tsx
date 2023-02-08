@@ -12,7 +12,7 @@ import { Button } from 'react-bootstrap';
 export interface IFormData {
     userId: string | null;
     dayOfMonth: Date | null;
-    date: string | null;
+    date: string | undefined;
     dayOfWeek: string;
     dateTimeToBed: Date | null;
     timeToBed: string;
@@ -38,6 +38,8 @@ const INITIALDREAMDATA: IFormData = {
 
 const DreamEntry: React.FC = () => {
     const [data, setData] = useState(INITIALDREAMDATA);
+    INITIALDREAMDATA.date = INITIALDREAMDATA.dayOfMonth?.toLocaleDateString();
+
     function updateFields(fields: Partial<IFormData>) {
         setData((prev) => {
             return { ...prev, ...fields };
@@ -48,7 +50,7 @@ const DreamEntry: React.FC = () => {
     const navigate = useNavigate();
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        // navigate('/viewdreams');
+        navigate('/viewdreams');
         try {
             const body = data;
             const response = await fetch('http://localhost:5000/dreamentry', {
@@ -58,7 +60,8 @@ const DreamEntry: React.FC = () => {
                 body: JSON.stringify(body)
             });
             console.log(data);
-            // console.log(response);
+            console.log(response);
+            window.location.reload();
         } catch (err) {
             console.log(err);
         }
