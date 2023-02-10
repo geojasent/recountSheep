@@ -9,9 +9,53 @@ import { Dream } from '../components/Dream';
 import { Card, Dropdown, Accordion, Modal, Button } from 'react-bootstrap';
 import AccordionBody from 'react-bootstrap/esm/AccordionBody';
 
+export interface IFormData {
+    dreamId: string | null;
+    userId: string | null;
+    dayOfMonth: Date | null;
+    date: string | undefined;
+    dayOfWeek: string;
+    dateTimeToBed: Date | null;
+    timeToBed: string;
+    timeAwake: number;
+    dreamLocation: string;
+    people: Array<string>;
+    typeOfDream: string;
+    dreamDescription: string;
+}
+const UPDATEDREAMDATA: IFormData = {
+    dreamId: null,
+    userId: null,
+    dayOfMonth: null,
+    date: undefined,
+    dayOfWeek: '',
+    dateTimeToBed: null,
+    timeToBed: '',
+    timeAwake: 0,
+    people: [],
+    dreamLocation: '',
+    typeOfDream: '',
+    dreamDescription: ''
+};
+
 export function DreamComponent() {
     const [dreams, setDreams] = useState<any[]>([]);
-    const [dreamIndex, setDreamIndex] = useState<number | null>();
+    // const [dreamIndex, setDreamIndex] = useState<number | null>();
+    const [data, setData] = useState(UPDATEDREAMDATA);
+
+    //Modal Popup
+    const [showDeleteDreamModal, setShowDeleteDreamModal] = useState(false);
+    const handleDeleteClose = () => setShowDeleteDreamModal(false);
+    const handleDeleteShow = () => setShowDeleteDreamModal(true);
+    const [showUpdateDreamModal, setShowUpdateDreamModal] = useState(false);
+    const handleUpdateClose = () => setShowUpdateDreamModal(false);
+    const handleUpdateShow = () => setShowUpdateDreamModal(true);
+
+    function updateFields(fields: Partial<IFormData>) {
+        setData((prev) => {
+            return { ...prev, ...fields };
+        });
+    }
 
     useFocusEffect(
         useCallback(() => {
@@ -68,20 +112,28 @@ export function DreamComponent() {
         return stringTemp.slice(0, -5) + ':' + stringTemp.slice(-5);
     }
 
-    //Modal Popup
-    const [showDeleteDreamModal, setShowDeleteDreamModal] = useState(false);
-    const handleDeleteClose = () => setShowDeleteDreamModal(false);
-    const handleDeleteShow = () => setShowDeleteDreamModal(true);
-    const [showUpdateDreamModal, setShowUpdateDreamModal] = useState(false);
-    const handleUpdateClose = () => setShowUpdateDreamModal(false);
-    const handleUpdateShow = () => setShowUpdateDreamModal(true);
-
-    const updateDream = async (data: any) => {
+    //set default for update dream form
+    const defaultDreamUpdateData = (index: number) => {
+        console.log(dreams[index]);
+        let dream = dreams[index];
+        data.dreamId = dream.dream_id;
+        data.dayOfMonth = dream.day_of_month !== 'Invalid Date' ? new Date(dream.day_of_month) : new Date();
+        data.dayOfWeek = dream.day_of_week;
+        console.log(dream.time_to_bed);
+        data.timeToBed = dream.time_to_bed;
+        data.timeAwake = dream.time_awake;
+        data.people = dream.people;
+        data.dreamLocation = dream.dream_location;
+        data.typeOfDream = dream.type_of_dream;
+        data.dreamDescription = dream.dream_description;
+        console.log(data);
+    };
+    const updateDream = async () => {
         // UpdateDreamModal({ ...data });
         try {
             // console.log(index);
             // let data = dreams[index];
-            // console.log(data);
+            console.log(data);
             // console.log(dreams);
             // const body = data from card?
             // const response = await fetch('http://localhost:5000/updatedream/' + dream_id, {
@@ -139,6 +191,7 @@ export function DreamComponent() {
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     handleUpdateShow();
+                                                    defaultDreamUpdateData(index);
                                                 }}
                                             >
                                                 <Modal
@@ -152,15 +205,14 @@ export function DreamComponent() {
                                                         <Modal.Title>Update Dream</Modal.Title>
                                                     </Modal.Header>
                                                     <Modal.Body>
-                                                        {/* <DateSelector {...data} updateFields={updateFields} /> */}
-                                                        {/* <DaySelector {...data} updateFields={updateFields} />
+                                                        <DateSelector {...data} updateFields={updateFields} />
+                                                        <DaySelector {...data} updateFields={updateFields} />
                                                         <TimeBedSelector {...data} updateFields={updateFields} />
                                                         <TimeAwakeSelector {...data} updateFields={updateFields} />
                                                         <PeopleInput {...data} updateFields={updateFields} />
                                                         <Location {...data} updateFields={updateFields} />
                                                         <TypeDream {...data} updateFields={updateFields} />
-                                                        <Dream {...data} updateFields={updateFields} /> */}
-                                                        <input defaultValue={'tes'}></input>Are you sure you want to Update this dream?
+                                                        <Dream {...data} updateFields={updateFields} />
                                                     </Modal.Body>
                                                     <Modal.Footer>
                                                         <Button
@@ -178,6 +230,7 @@ export function DreamComponent() {
                                                                 e.stopPropagation();
                                                                 handleUpdateClose();
                                                                 console.log('update dream');
+                                                                updateDream();
                                                             }}
                                                         >
                                                             Update

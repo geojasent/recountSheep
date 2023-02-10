@@ -10,10 +10,10 @@ interface PeopleProps extends IPeopleData {
 }
 
 export function PeopleInput({ people, updateFields }: PeopleProps) {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(people.length || 0);
     const [buttonDisabled, setbuttonDisabled] = useState(true);
-    const [tempPeople, setTempPeople] = useState<Array<string>>([]);
-
+    const [tempPeople, setTempPeople] = useState<Array<string>>(people ? people : []);
+    console.log(people);
     //count logic
     const decrement = () => {
         setCount(count - 1);

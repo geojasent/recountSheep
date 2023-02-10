@@ -17,7 +17,7 @@ interface DateTimeProps extends IDateTimeData {
 
 export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
     const [startDate, setStartDate] = useState<Date | null>(dayOfMonth);
-    const dateString = startDate?.toLocaleDateString();
+    // const dateString = startDate?.toLocaleDateString();
 
     const longDayOfWeek = (shortHand: string) => {
         switch (shortHand) {
@@ -102,7 +102,7 @@ export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
 }
 
 export function TimeBedSelector({ dateTimeToBed, timeToBed, updateFields }: DateTimeProps) {
-    const [startDate, setStartDate] = useState<null | Date>(dateTimeToBed);
+    const [startDate, setStartDate] = useState<null | Date>(timeToBed ? new Date('01-01-1970 ' + timeToBed) : dateTimeToBed);
     return (
         <>
             <label className="dreamInputLabel">Time to Bed</label>
@@ -127,7 +127,7 @@ export function TimeAwakeSelector({ timeAwake, updateFields }: DateTimeProps) {
     return (
         <>
             <label className="dreamInputLabel">Minutes Awake</label>
-            <input onChange={(e) => updateFields({ timeAwake: Number(e.target.value) })}></input>
+            <input defaultValue={timeAwake ? timeAwake : undefined} onChange={(e) => updateFields({ timeAwake: Number(e.target.value) })}></input>
         </>
     );
 }
