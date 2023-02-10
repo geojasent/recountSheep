@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 interface IDateTimeData {
     dayOfMonth: Date | null;
     date: string | undefined;
-    dayOfWeek: string;
+    dayOfWeek: string | undefined;
     dateTimeToBed: Date | null;
     timeToBed: string;
     timeAwake: number;
@@ -45,8 +45,11 @@ export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
                 selected={startDate}
                 onChange={(selected: Date) => {
                     updateFields({ dayOfWeek: longDayOfWeek(String(selected).slice(0, 3)) });
-                    updateFields({ date: dateString });
+                    updateFields({ date: selected?.toLocaleDateString() });
+                    updateFields({ dayOfMonth: selected });
                     setStartDate(selected);
+                    // console.log(dayOfMonth);
+                    // console.log(selected);
                 }}
             />
         </>

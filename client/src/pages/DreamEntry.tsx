@@ -13,7 +13,7 @@ export interface IFormData {
     userId: string | null;
     dayOfMonth: Date | null;
     date: string | undefined;
-    dayOfWeek: string;
+    dayOfWeek: string | undefined;
     dateTimeToBed: Date | null;
     timeToBed: string;
     timeAwake: number;
@@ -22,11 +22,31 @@ export interface IFormData {
     typeOfDream: string;
     dreamDescription: string;
 }
+
+const longDayOfWeek = (shortHand: string) => {
+    switch (shortHand) {
+        case 'Sun':
+            return 'Sunday';
+        case 'Mon':
+            return 'Monday';
+        case 'Tue':
+            return 'Tuesday';
+        case 'Wed':
+            return 'Wednesday';
+        case 'Thu':
+            return 'Thursday';
+        case 'Fri':
+            return 'Friday';
+        case 'Sat':
+            return 'Saturday';
+    }
+};
+
 const INITIALDREAMDATA: IFormData = {
     userId: '0',
     dayOfMonth: new Date(),
     date: '',
-    dayOfWeek: String(new Date()).slice(0, 3),
+    dayOfWeek: longDayOfWeek(String(new Date()).slice(0, 3)),
     dateTimeToBed: new Date(),
     timeToBed: '',
     timeAwake: 0,
@@ -59,8 +79,8 @@ const DreamEntry: React.FC = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
-            console.log(data);
-            console.log(response);
+            // console.log(data);
+            // console.log(response);
             window.location.reload();
         } catch (err) {
             console.log(err);
