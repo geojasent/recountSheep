@@ -4,6 +4,7 @@ import getDream from './api/dream/getDream';
 const router = express.Router();
 const userPost = require('./api/user/postUser');
 const dreamEntryPost = require('./api/dream/postDream');
+const updateDream = require('./api/dream/putDream');
 const deleteDream = require('./api/dream/deleteDream');
 const loginUser = require('./api/loginLogout/postLogin');
 const logoutUser = require('./api/loginLogout/postLogout');
@@ -11,7 +12,8 @@ const logoutUser = require('./api/loginLogout/postLogout');
 
 router.post('/signup', userPost.createUserPost);
 router.post('/dreamentry', dreamEntryPost.createDreamEntryPost);
-router.delete('/deletedream/:dreamId', deleteDream.deleteDream);
+router.put('/updatedream/:dreamId', updateDream.updateDreamEntryPost);
+router.delete('/deletedream/:dreamId', deleteDream.deleteDreamEntryPost);
 router.get('/viewdreams', getDream);
 router.post('/login', loginUser.loginUserPost);
 router.post('/logout', logoutUser.logoutUserPost);
