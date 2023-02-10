@@ -1,10 +1,17 @@
 import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
+import { UpdateDreamModal } from './UpdateDreamModal';
+import { DateSelector, DaySelector, TimeBedSelector, TimeAwakeSelector } from '../components/dateTimePicker';
+import { PeopleInput } from '../components/PeopleInput';
+import { TypeDream } from '../components/TypeDream';
+import { Location } from '../components/Location';
+import { Dream } from '../components/Dream';
 import { Card, Dropdown, Accordion, Modal, Button } from 'react-bootstrap';
 import AccordionBody from 'react-bootstrap/esm/AccordionBody';
 
 export function DreamComponent() {
     const [dreams, setDreams] = useState<any[]>([]);
+    const [dreamIndex, setDreamIndex] = useState<number | null>();
 
     useFocusEffect(
         useCallback(() => {
@@ -62,11 +69,38 @@ export function DreamComponent() {
     }
 
     //Modal Popup
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [showDeleteDreamModal, setShowDeleteDreamModal] = useState(false);
+    const handleDeleteClose = () => setShowDeleteDreamModal(false);
+    const handleDeleteShow = () => setShowDeleteDreamModal(true);
+    const [showUpdateDreamModal, setShowUpdateDreamModal] = useState(false);
+    const handleUpdateClose = () => setShowUpdateDreamModal(false);
+    const handleUpdateShow = () => setShowUpdateDreamModal(true);
 
-    function updateDream() {}
+    const updateDream = async (data: any) => {
+        // UpdateDreamModal({ ...data });
+        try {
+            // console.log(index);
+            // let data = dreams[index];
+            // console.log(data);
+            // console.log(dreams);
+            // const body = data from card?
+            // const response = await fetch('http://localhost:5000/updatedream/' + dream_id, {
+            //     method: 'PUT',
+            //     credentials: 'include',
+            //     headers: { 'Content-Type': 'application/json' }
+            // });
+            // response.json().then((res) => {
+            //     // if (res === 1) {
+            //     //     window.location.reload();
+            //     // } else {
+            //     //     alert('Error ocurred');
+            //     // }
+            //     console.log(res);
+            // });
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const deleteDream = async (dream_id: number) => {
         try {
@@ -89,9 +123,9 @@ export function DreamComponent() {
 
     return (
         <>
-            {dreams.map((dream) => {
+            {dreams.map((dream, index) => {
                 return (
-                    <div className="dreamContainer" key={dream.dream_id}>
+                    <div className="dreamContainer" key={index} id={String(index)}>
                         <Card>
                             <Card.Header id="cardHeaderContainer">
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -100,24 +134,70 @@ export function DreamComponent() {
                                         <Dropdown.Toggle split variant="basic" id="dropdown-split-basic" />
                                         <Dropdown.Menu>
                                             <Dropdown.Item
-                                                onClick={() => {
-                                                    updateDream();
+                                                key={index}
+                                                eventKey={dream.dream_id}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleUpdateShow();
                                                 }}
                                             >
+                                                <Modal
+                                                    show={showUpdateDreamModal}
+                                                    onClick={(e: any) => {
+                                                        e.stopPropagation();
+                                                    }}
+                                                    onHide={handleUpdateClose}
+                                                >
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title>Update Dream</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>
+                                                        {/* <DateSelector {...data} updateFields={updateFields} /> */}
+                                                        {/* <DaySelector {...data} updateFields={updateFields} />
+                                                        <TimeBedSelector {...data} updateFields={updateFields} />
+                                                        <TimeAwakeSelector {...data} updateFields={updateFields} />
+                                                        <PeopleInput {...data} updateFields={updateFields} />
+                                                        <Location {...data} updateFields={updateFields} />
+                                                        <TypeDream {...data} updateFields={updateFields} />
+                                                        <Dream {...data} updateFields={updateFields} /> */}
+                                                        <input defaultValue={'tes'}></input>Are you sure you want to Update this dream?
+                                                    </Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button
+                                                            variant="secondary"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleUpdateClose();
+                                                            }}
+                                                        >
+                                                            Cancel
+                                                        </Button>
+                                                        <Button
+                                                            variant="primary"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleUpdateClose();
+                                                                console.log('update dream');
+                                                            }}
+                                                        >
+                                                            Update
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
                                                 Update
                                             </Dropdown.Item>
                                             <Dropdown.Item
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    handleShow();
+                                                    handleDeleteShow();
                                                 }}
                                             >
                                                 <Modal
-                                                    show={show}
+                                                    show={showDeleteDreamModal}
                                                     onClick={(e: any) => {
                                                         e.stopPropagation();
-                                                        handleClose();
                                                     }}
+                                                    onHide={handleDeleteClose}
                                                 >
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Delete Dream</Modal.Title>
@@ -128,7 +208,7 @@ export function DreamComponent() {
                                                             variant="secondary"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                handleClose();
+                                                                handleDeleteClose();
                                                             }}
                                                         >
                                                             Cancel
@@ -137,7 +217,7 @@ export function DreamComponent() {
                                                             variant="primary"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                handleClose();
+                                                                handleDeleteClose();
                                                                 deleteDream(dream.dream_id);
                                                             }}
                                                         >
