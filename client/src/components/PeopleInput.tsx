@@ -13,7 +13,8 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
     const [count, setCount] = useState(people.length || 0);
     const [buttonDisabled, setbuttonDisabled] = useState(true);
     const [tempPeople, setTempPeople] = useState<Array<string>>(people ? people : []);
-    console.log(people);
+    console.log(count);
+    console.log(tempPeople);
     //count logic
     const decrement = () => {
         setCount(count - 1);
@@ -33,6 +34,7 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
                 <input
                     className="personInput"
                     key={`person${i}`}
+                    defaultValue={people[i - 1]}
                     onChange={(e) => {
                         setTempPeople((prev) => {
                             prev[i - 1] = e.target.value;
