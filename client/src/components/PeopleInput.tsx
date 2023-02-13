@@ -13,8 +13,6 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
     const [count, setCount] = useState(people.length || 0);
     const [buttonDisabled, setbuttonDisabled] = useState(true);
     const [tempPeople, setTempPeople] = useState<Array<string>>(people ? people : []);
-    console.log(count);
-    console.log(tempPeople);
     //count logic
     const decrement = () => {
         setCount(count - 1);

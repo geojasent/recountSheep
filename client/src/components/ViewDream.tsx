@@ -114,19 +114,16 @@ export function DreamComponent() {
 
     //set default for update dream form
     const defaultDreamUpdateData = (index: number) => {
-        console.log(dreams[index]);
         let dream = dreams[index];
         data.dreamId = dream.dream_id;
         data.dayOfMonth = dream.day_of_month !== 'Invalid Date' ? new Date(dream.day_of_month) : new Date();
         data.dayOfWeek = dream.day_of_week;
-        console.log(dream.time_to_bed);
         data.timeToBed = dream.time_to_bed;
         data.timeAwake = dream.time_awake;
         data.people = dream.people;
         data.dreamLocation = dream.dream_location;
         data.typeOfDream = dream.type_of_dream;
         data.dreamDescription = dream.dream_description;
-        console.log(data);
     };
     const updateDream = async () => {
         // UpdateDreamModal({ ...data });

@@ -12,7 +12,7 @@ export function Dream({ dreamDescription, updateFields }: DreamProps) {
     return (
         <>
             <label className="dreamInputLabel">Dream</label>
-            <textarea id="dreamDescriptionInput" onChange={(e) => updateFields({ dreamDescription: e.target.value })}></textarea>
+            <textarea id="dreamDescriptionInput" defaultValue={dreamDescription} onChange={(e) => updateFields({ dreamDescription: e.target.value })}></textarea>
         </>
     );
 }
