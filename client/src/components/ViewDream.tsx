@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { UpdateDreamModal } from './UpdateDreamModal';
 import { DateSelector, DaySelector, TimeBedSelector, TimeAwakeSelector } from '../components/dateTimePicker';
 import { PeopleInput } from '../components/PeopleInput';
 import { TypeDream } from '../components/TypeDream';
@@ -40,7 +39,6 @@ const UPDATEDREAMDATA: IFormData = {
 
 export function DreamComponent() {
     const [dreams, setDreams] = useState<any[]>([]);
-    // const [dreamIndex, setDreamIndex] = useState<number | null>();
     const [data, setData] = useState(UPDATEDREAMDATA);
 
     //Modal Popup
@@ -48,7 +46,11 @@ export function DreamComponent() {
     const handleDeleteClose = () => setShowDeleteDreamModal(false);
     const handleDeleteShow = () => setShowDeleteDreamModal(true);
     const [showUpdateDreamModal, setShowUpdateDreamModal] = useState(false);
-    const handleUpdateClose = () => setShowUpdateDreamModal(false);
+    const handleUpdateClose = () => {
+        setShowUpdateDreamModal(false);
+        window.location.reload();
+    };
+
     const handleUpdateShow = () => setShowUpdateDreamModal(true);
 
     function updateFields(fields: Partial<IFormData>) {
@@ -117,6 +119,7 @@ export function DreamComponent() {
         let dream = dreams[index];
         data.dreamId = dream.dream_id;
         data.dayOfMonth = dream.day_of_month !== 'Invalid Date' ? new Date(dream.day_of_month) : new Date();
+        data.date = data.dayOfMonth.toLocaleDateString();
         data.dayOfWeek = dream.day_of_week;
         data.timeToBed = dream.time_to_bed;
         data.timeAwake = dream.time_awake;
@@ -125,27 +128,15 @@ export function DreamComponent() {
         data.typeOfDream = dream.type_of_dream;
         data.dreamDescription = dream.dream_description;
     };
+
     const updateDream = async () => {
-        // UpdateDreamModal({ ...data });
         try {
-            // console.log(index);
-            // let data = dreams[index];
-            console.log(data);
-            // console.log(dreams);
-            // const body = data from card?
-            // const response = await fetch('http://localhost:5000/updatedream/' + dream_id, {
-            //     method: 'PUT',
-            //     credentials: 'include',
-            //     headers: { 'Content-Type': 'application/json' }
-            // });
-            // response.json().then((res) => {
-            //     // if (res === 1) {
-            //     //     window.location.reload();
-            //     // } else {
-            //     //     alert('Error ocurred');
-            //     // }
-            //     console.log(res);
-            // });
+            const response = await fetch('http://localhost:5000/updatedream/' + data.dreamId, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
         } catch (err) {
             console.log(err);
         }
@@ -193,6 +184,7 @@ export function DreamComponent() {
                                             >
                                                 <Modal
                                                     show={showUpdateDreamModal}
+                                                    onKeyDown={(e: any) => e.stopPropagation()}
                                                     onClick={(e: any) => {
                                                         e.stopPropagation();
                                                     }}
@@ -226,7 +218,6 @@ export function DreamComponent() {
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 handleUpdateClose();
-                                                                console.log('update dream');
                                                                 updateDream();
                                                             }}
                                                         >

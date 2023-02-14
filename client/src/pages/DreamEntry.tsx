@@ -79,8 +79,6 @@ const DreamEntry: React.FC = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
-            // console.log(data);
-            // console.log(response);
             window.location.reload();
         } catch (err) {
             console.log(err);

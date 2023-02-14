@@ -14,7 +14,11 @@ export function PeopleInput({ people, updateFields }: PeopleProps) {
     const [buttonDisabled, setbuttonDisabled] = useState(true);
     const [tempPeople, setTempPeople] = useState<Array<string>>(people ? people : []);
     //count logic
+    if (count > 0 && buttonDisabled) setbuttonDisabled(false);
     const decrement = () => {
+        tempPeople.splice(count - 1, 1);
+        people.splice(count - 1, 1);
+        updateFields({ people: people });
         setCount(count - 1);
         if (count === 1 && !buttonDisabled) setbuttonDisabled(true);
     };

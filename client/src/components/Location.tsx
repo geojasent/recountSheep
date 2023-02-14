@@ -10,7 +10,7 @@ export function Location({ dreamLocation, updateFields }: DreamProps) {
     return (
         <>
             <label className="dreamInputLabel">Location</label>
-            <input onChange={(e) => updateFields({ dreamLocation: e.target.value })}></input>
+            <input defaultValue={dreamLocation} onChange={(e) => updateFields({ dreamLocation: e.target.value })}></input>
         </>
     );
 }
