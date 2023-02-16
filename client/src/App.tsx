@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Logout from './components/Logout';
 import DreamEntry from './pages/DreamEntry';
 import DisplayDreams from './pages/ViewDreams';
+import AboutPage from './pages/About';
 import { UserSessionContextProvider } from './components/SessionContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavigationContainer } from '@react-navigation/native';
@@ -36,6 +37,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                                 <Route path="/logout" element={<Logout />} />
                                 <Route path="/dreamentry" element={<DreamEntry />} />
                                 <Route path="/viewdreams" element={<DisplayDreams />} />
+                                <Route path="/about" element={<AboutPage />} />
                             </Routes>
                             <Footer />
                         </div>
