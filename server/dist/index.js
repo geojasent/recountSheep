@@ -11,7 +11,7 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const PORT = process.env.PORT || 5000;
 //middleware
-app.use(cors({ credentials: true, origin: 'https://recountSheep.onrender.com' }));
+app.use(cors({ credentials: true, origin: 'https://recountsheep-server.onrender.com' }));
 app.use(express_1.default.json());
 app.use(session({
     store: new pgSession(),
@@ -31,6 +31,6 @@ app.use('/', router_1.default);
 // });
 // //update dream
 app.listen(PORT, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+    console.log(`⚡️[server]: Server is running on port ${PORT}`);
 });
 //on shutdown pool end??

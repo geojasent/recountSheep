@@ -7,7 +7,7 @@ const Logout: React.FC = () => {
     //end session
     sessionStorage.removeItem('userId');
     useEffect(() => {
-        fetch('http://localhost:5000/logout', {
+        fetch('https://recountsheep-server.onrender.com/logout', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }
