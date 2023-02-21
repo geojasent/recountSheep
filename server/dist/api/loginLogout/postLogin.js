@@ -22,6 +22,7 @@ exports.loginUserPost = (req, res) => __awaiter(void 0, void 0, void 0, function
         //check db for user
         const username = req.body.userName.toUpperCase();
         const userPassword = req.body.userPassword;
+        console.log(req.body);
         let storedUserId, storedUsername, storedPassword, storedEmail;
         const storedRecountSheepUser = yield dbConnection_1.default.query(`SELECT * FROM recountsheepusers WHERE user_username = '${username}'`);
         const serverUserData = storedRecountSheepUser.rows[0];
@@ -30,6 +31,7 @@ exports.loginUserPost = (req, res) => __awaiter(void 0, void 0, void 0, function
             storedUsername = serverUserData.user_username;
             storedPassword = serverUserData.user_password;
             storedEmail = serverUserData.user_email;
+            console.log('userexistsindb');
         }
         else {
             return res.send(loginResponse);
@@ -44,6 +46,7 @@ exports.loginUserPost = (req, res) => __awaiter(void 0, void 0, void 0, function
             };
             loginResponse = Object.assign({ session: req.session.user });
             loginResponse.continueLogin = true;
+            console.log(loginResponse);
             res.send(loginResponse);
         }
         else {

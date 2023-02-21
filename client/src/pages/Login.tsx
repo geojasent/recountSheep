@@ -35,9 +35,9 @@ const Login: React.FC = () => {
             return { ...prev, ...fields };
         });
     }
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (userData: any) => {
         try {
-            let body = data;
+            let body = userData;
             const response = await fetch('https://recountsheep-server.onrender.com/login', {
                 method: 'POST',
                 credentials: 'include',
@@ -49,10 +49,13 @@ const Login: React.FC = () => {
                     setCurrentUser.id = res.session.id;
                     sessionStorage.setItem('userId', res.session.id);
                     navigate('/viewdreams');
+                    console.log(res);
+                    console.log(sessionStorage);
                 } else {
                     alert('Username or password is incorrect');
                 }
             });
+            console.log();
         } catch (err) {
             console.log(err);
         }
