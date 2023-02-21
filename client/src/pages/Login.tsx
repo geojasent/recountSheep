@@ -49,13 +49,10 @@ const Login: React.FC = () => {
                     setCurrentUser.id = res.session.id;
                     sessionStorage.setItem('userId', res.session.id);
                     navigate('/viewdreams');
-                    console.log(res);
-                    console.log(sessionStorage);
                 } else {
                     alert('Username or password is incorrect');
                 }
             });
-            console.log();
         } catch (err) {
             console.log(err);
         }
