@@ -8,7 +8,7 @@ const pgSession = require('connect-pg-simple')(session);
 
 const PORT = process.env.PORT || 5000;
 //middleware
-app.use(cors({ credentials: true, origin: 'https://recountsheep.onrender.com' }));
+app.use(cors({ credentials: true, origin: 'https://recountsheep.com' }));
 app.use(express.json());
 
 declare module 'express-session' {
@@ -16,7 +16,7 @@ declare module 'express-session' {
         user: { [key: string]: any };
     }
 }
-
+app.set('trust proxy', 1);
 app.use(
     session({
         store: new pgSession(),
