@@ -19,7 +19,11 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+    cookie: {
+        secure: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        sameSite: 'none'
+    }
 }));
 app.use('/', router_1.default);
 // //get homepage
