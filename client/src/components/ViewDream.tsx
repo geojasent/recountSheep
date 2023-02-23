@@ -130,9 +130,9 @@ export function DreamComponent() {
         console.log(data);
     };
 
-    const updateDream = async () => {
+    const updateDream = async (dream_id: number) => {
         try {
-            const response = await fetch('https://recountsheep-server.onrender.com/updatedream/' + data.dreamId, {
+            const response = await fetch('https://recountsheep-server.onrender.com/updatedream/' + dream_id, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -217,9 +217,9 @@ export function DreamComponent() {
                                                         <Button
                                                             variant="primary"
                                                             onClick={(e) => {
+                                                                updateDream(dream.dream_id);
                                                                 e.stopPropagation();
                                                                 handleUpdateClose();
-                                                                updateDream();
                                                             }}
                                                         >
                                                             Update
@@ -258,9 +258,9 @@ export function DreamComponent() {
                                                         <Button
                                                             variant="primary"
                                                             onClick={(e) => {
+                                                                deleteDream(dream.dream_id);
                                                                 e.stopPropagation();
                                                                 handleDeleteClose();
-                                                                deleteDream(dream.dream_id);
                                                             }}
                                                         >
                                                             Delete

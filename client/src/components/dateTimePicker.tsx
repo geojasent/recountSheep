@@ -108,6 +108,7 @@ export function TimeBedSelector({ dateTimeToBed, timeToBed, updateFields }: Date
     console.log('timebedselector');
     console.log(dateTimeToBed);
     console.log(timeToBed);
+    console.log(startDate);
     return (
         <>
             <label className="dreamInputLabel">Time to Bed</label>
