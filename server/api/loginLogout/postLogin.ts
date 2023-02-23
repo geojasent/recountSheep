@@ -12,7 +12,6 @@ exports.loginUserPost = async (req: Request, res: Response) => {
         //check db for user
         const username: string = req.body.userName.toUpperCase();
         const userPassword: string = req.body.userPassword;
-        console.log(req.body);
 
         let storedUserId: string, storedUsername: string, storedPassword: string, storedEmail: string;
 
@@ -23,7 +22,6 @@ exports.loginUserPost = async (req: Request, res: Response) => {
             storedUsername = serverUserData.user_username;
             storedPassword = serverUserData.user_password;
             storedEmail = serverUserData.user_email;
-            console.log('userexistsindb');
         } else {
             return res.send(loginResponse);
         }
@@ -38,7 +36,6 @@ exports.loginUserPost = async (req: Request, res: Response) => {
             };
             loginResponse = Object.assign({ session: req.session.user });
             loginResponse.continueLogin = true;
-            console.log(loginResponse);
             res.send(loginResponse);
         } else {
             res.send(loginResponse);

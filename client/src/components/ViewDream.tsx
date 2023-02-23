@@ -127,6 +127,7 @@ export function DreamComponent() {
         data.dreamLocation = dream.dream_location;
         data.typeOfDream = dream.type_of_dream;
         data.dreamDescription = dream.dream_description;
+        console.log(data);
     };
 
     const updateDream = async () => {

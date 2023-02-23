@@ -37,6 +37,8 @@ export function DateSelector({ dayOfMonth, updateFields }: DateTimeProps) {
                 return 'Saturday';
         }
     };
+    console.log('dateselector');
+    console.log(dayOfMonth);
 
     return (
         <>
@@ -103,6 +105,9 @@ export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
 
 export function TimeBedSelector({ dateTimeToBed, timeToBed, updateFields }: DateTimeProps) {
     const [startDate, setStartDate] = useState<null | Date>(timeToBed ? new Date('01-01-1970 ' + timeToBed) : dateTimeToBed);
+    console.log('timebedselector');
+    console.log(dateTimeToBed);
+    console.log(timeToBed);
     return (
         <>
             <label className="dreamInputLabel">Time to Bed</label>
