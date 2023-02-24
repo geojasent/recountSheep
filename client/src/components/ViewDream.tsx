@@ -138,6 +138,10 @@ export function DreamComponent() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
+            console.log('update dream called');
+            response.json().then((res) => {
+                console.log(res);
+            });
         } catch (err) {
             console.log(err);
         }
