@@ -50,6 +50,9 @@ export function DreamComponent() {
         setShowUpdateDreamModal(false);
         window.location.reload();
     };
+    const handleClose = () => {
+        setShowUpdateDreamModal(false);
+    };
 
     const handleUpdateShow = () => setShowUpdateDreamModal(true);
 
@@ -138,9 +141,9 @@ export function DreamComponent() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-            console.log('update dream called');
             response.json().then((res) => {
                 console.log(res);
+                handleUpdateClose();
             });
         } catch (err) {
             console.log(err);
@@ -193,7 +196,7 @@ export function DreamComponent() {
                                                     onClick={(e: any) => {
                                                         e.stopPropagation();
                                                     }}
-                                                    onHide={handleUpdateClose}
+                                                    onHide={handleClose}
                                                 >
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Update Dream</Modal.Title>
@@ -213,7 +216,7 @@ export function DreamComponent() {
                                                             variant="secondary"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                handleUpdateClose();
+                                                                handleClose();
                                                             }}
                                                         >
                                                             Cancel
@@ -223,7 +226,8 @@ export function DreamComponent() {
                                                             onClick={(e) => {
                                                                 updateDream(dream.dream_id);
                                                                 e.stopPropagation();
-                                                                handleUpdateClose();
+                                                                // handleUpdateClose();
+                                                                console.log('should go to update');
                                                             }}
                                                         >
                                                             Update
