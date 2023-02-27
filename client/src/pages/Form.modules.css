@@ -57,7 +57,7 @@ textarea {
 
 .radioSelectionContainer {
     display: flex;
-    width: 30px;
+    width: auto;
     margin: 2px;
 }
 

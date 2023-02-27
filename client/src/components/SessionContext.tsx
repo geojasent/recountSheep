@@ -7,7 +7,7 @@ interface UserSessionContextType {
 export const UserSessionContext = createContext<UserSessionContextType>(null!);
 
 export const UserSessionContextProvider = ({ children }: any) => {
-    const [currentUser, setCurrentUser] = useState<UserSessionContextType>({ id: localStorage.getItem('userId') || null });
+    const [currentUser, setCurrentUser] = useState<UserSessionContextType>({ id: sessionStorage.getItem('userId') || null });
 
     return <UserSessionContext.Provider value={currentUser}>{children}</UserSessionContext.Provider>;
 };
