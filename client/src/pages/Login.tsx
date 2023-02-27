@@ -47,7 +47,7 @@ const Login: React.FC = () => {
             response.json().then((res) => {
                 if (res.continueLogin) {
                     setCurrentUser.id = res.session.id;
-                    window.localStorage.setItem('userId', String(res.session.id));
+                    localStorage.setItem('userId', String(res.session.id));
                     navigate('/viewdreams');
                 } else {
                     alert('Username or password is incorrect');

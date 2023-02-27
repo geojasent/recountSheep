@@ -1,7 +1,3 @@
 .radioSelection {
-    display: flex;
     margin: 0.25em 0rem;
-    border: 0px;
-    width: 13px;
-    height: 16px;
 }

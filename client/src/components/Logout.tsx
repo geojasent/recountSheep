@@ -5,7 +5,7 @@ const Logout: React.FC = () => {
     const navigate = useNavigate();
 
     //end session
-    window.localStorage.removeItem('userId');
+    localStorage.removeItem('userId');
     useEffect(() => {
         fetch('https://recountsheep-server.onrender.com/logout', {
             method: 'POST',
