@@ -71,6 +71,7 @@ export function DreamComponent() {
                     const response = await fetch('https://recountsheep-server.onrender.com/viewdreams', {
                         method: 'GET',
                         credentials: 'include',
+                        mode: 'cors',
                         headers: { 'Content-Type': 'application/json' }
                     });
                     response.json().then((res) => {
@@ -139,6 +140,7 @@ export function DreamComponent() {
                 method: 'PUT',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
+                mode: 'cors',
                 body: JSON.stringify(data)
             });
             response.json().then((res) => {
@@ -155,6 +157,7 @@ export function DreamComponent() {
             const response = await fetch(`https://recountsheep-server.onrender.com/deletedream/` + dream_id, {
                 method: 'DELETE',
                 credentials: 'include',
+                mode: 'cors',
                 headers: { 'Content-Type': 'application/json' }
             });
             response.json().then((res) => {

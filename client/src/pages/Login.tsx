@@ -41,6 +41,7 @@ const Login: React.FC = () => {
             const response = await fetch('https://recountsheep-server.onrender.com/login', {
                 method: 'POST',
                 credentials: 'include',
+                mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });

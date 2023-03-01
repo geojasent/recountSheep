@@ -39,6 +39,7 @@ const SignUp: React.FC = () => {
             const body = data;
             const response = await fetch('https://recountsheep-server.onrender.com/signup', {
                 method: 'POST',
+                mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });

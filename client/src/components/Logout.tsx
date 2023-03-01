@@ -10,6 +10,7 @@ const Logout: React.FC = () => {
         fetch('https://recountsheep-server.onrender.com/logout', {
             method: 'POST',
             credentials: 'include',
+            mode: 'cors',
             headers: { 'Content-Type': 'application/json' }
         }).then();
         navigate('/');
