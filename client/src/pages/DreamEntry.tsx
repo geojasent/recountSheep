@@ -73,7 +73,7 @@ const DreamEntry: React.FC = () => {
         navigate('/viewdreams');
         try {
             const body = data;
-            const response = await fetch('https://recountsheep-server.onrender.com/dreamentry', {
+            const response = await fetch('https://api.recountsheep.com/dreamentry', {
                 method: 'POST',
                 credentials: 'include',
                 mode: 'cors',

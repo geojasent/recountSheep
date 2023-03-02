@@ -38,7 +38,7 @@ const Login: React.FC = () => {
     const onSubmit = async (userData: any) => {
         try {
             let body = userData;
-            const response = await fetch('https://recountsheep-server.onrender.com/login', {
+            const response = await fetch('https://api.recountsheep.com/login', {
                 method: 'POST',
                 credentials: 'include',
                 mode: 'cors',
