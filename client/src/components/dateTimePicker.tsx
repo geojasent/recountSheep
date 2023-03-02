@@ -104,7 +104,7 @@ export function DaySelector({ dayOfWeek, updateFields }: DateTimeProps) {
 }
 
 export function TimeBedSelector({ dateTimeToBed, timeToBed, updateFields }: DateTimeProps) {
-    const [startDate, setStartDate] = useState<null | Date>(timeToBed ? new Date('01-01-1970 ' + timeToBed) : dateTimeToBed);
+    const [startDate, setStartDate] = useState<null | Date>(timeToBed ? new Date('01-01-1970 ' + timeToBed) : new Date());
     console.log('timebedselector');
     console.log(dateTimeToBed);
     console.log(timeToBed);
