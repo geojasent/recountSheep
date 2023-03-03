@@ -19,7 +19,7 @@
     <a href="https://github.com/geojasent/recountSheep/issues">Report Bug</a>
     ·
     <a href="https://github.com/geojasent/recountSheep/issues">Request Feature</a>
-    .
+    ·
   </p>
 </div>
 <!-- TABLE OF CONTENTS -->
@@ -48,9 +48,9 @@
 
 ## About The Project
 
-[![dreamentry][dreamentry-screenshot]](https://recountsheep.com)
-
 A web based dream journal to record your dreams on any device.
+
+[![dreamentry][dreamentry-screenshot]](https://recountsheep.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -58,8 +58,8 @@ A web based dream journal to record your dreams on any device.
 
 -   [![Postgres][postgres.org]][mongodb-url]
 -   [![Express][express.js]][express.js-url]
--   [![NodeJS][nodejs.js]][nodejs-url]
 -   [![React][react.js]][react-url]
+-   [![NodeJS][nodejs.js]][nodejs-url]
 -   [![Bootstrap][bootstrap.com]][bootstrap-url]
 -   [![Javascript][javascript.js]][javascript-url]
 -   [![Typescript][typescript.ts]][typescript-url]
@@ -124,7 +124,7 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 
 ## Contact
 
-Jason Wong - [@twitter_handle](https://twitter.com/geojasent) - wongjason415@gmail.com
+Jason Wong - wongjason415@gmail.com
 
 Project Link: [https://github.com/geojasent/recountSheep](https://github.com/geojasent/recountSheep)
 
@@ -140,7 +140,7 @@ Project Link: [https://github.com/geojasent/recountSheep](https://github.com/geo
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [javascript.js]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
 [javascript-url]: https://www.javascript.com/
-[typescript.ts]: (https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+[typescript.ts]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
 [typescript-url]: https://www.typescriptlang.org/
 [nodejs.js]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [nodejs-url]: https://nodejs.org/en/
@@ -148,7 +148,7 @@ Project Link: [https://github.com/geojasent/recountSheep](https://github.com/geo
 [express.js-url]: https://expressjs.com/
 [mongodb.com]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white
 [mongodb-url]: https://www.mongodb.com/
-[postgres.org]: (https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+[postgres.org]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
 [postgres-url]: https://www.postgresql.org/
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
