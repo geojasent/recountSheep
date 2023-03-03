@@ -131,7 +131,6 @@ export function DreamComponent() {
         data.dreamLocation = dream.dream_location;
         data.typeOfDream = dream.type_of_dream;
         data.dreamDescription = dream.dream_description;
-        console.log(data);
     };
 
     const updateDream = async (dream_id: number) => {
@@ -229,8 +228,6 @@ export function DreamComponent() {
                                                             onClick={(e) => {
                                                                 updateDream(dream.dream_id);
                                                                 e.stopPropagation();
-                                                                // handleUpdateClose();
-                                                                console.log('should go to update');
                                                             }}
                                                         >
                                                             Update
